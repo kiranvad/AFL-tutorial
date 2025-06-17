@@ -2,7 +2,7 @@
 import xarray as xr
 xr.set_options(display_expand_data=False)
 
-from AFL.double_agent_tutorial.instruments.tutorial import get_virtual_instrument
+from AFL.double_agent.data import example_dataset2
 from AFL.double_agent.Preprocessor import LogLogTransform
 from AFL.double_agent.Pipeline import Pipeline
 from AFL.double_agent.AmplitudePhaseDistance import AmplitudePhaseDistance
@@ -12,21 +12,19 @@ import numpy as np
 import time 
 from scipy.spatial.distance import squareform
 
-instrument = get_virtual_instrument()
+example_dataset = example_dataset2()
+print(example_dataset)
 
-composition_list = [
-    {'a':1/3,'b':1/3,'c':1/3},
-    {'a':0.0,'b':0.5,'c':0.5},
-    {'a':0.5,'b':0.0,'c':0.5},
-]
-
-input_dataset = instrument.measure_multiple(composition_list)
+n_samples = 3
+sample_indices = example_dataset.sample.values 
+selected_samples = np.random.choice(sample_indices, size=n_samples, replace=False)
+input_dataset = example_dataset.sel(sample=selected_samples)
 print(input_dataset)
 
 # test log-log preprocessor
 with Pipeline() as test_pipeline:
        LogLogTransform(
-           input_variable='sas',
+           input_variable='I',
            output_variable='log_iq',
            dim='q',
         )
@@ -44,17 +42,15 @@ print(x.shape, y.shape)
 for method in ["discrete", "continuous"]:
     print("testing for %s..."%method)
     start = time.time()
-    with test_pipeline:
+    with test_pipeline.copy() as tp:
         AmplitudePhaseDistance(
             input_variable="log_iq",
             output_variable='similarity',
             method=method,
-            sample_dim='log_q',
+            sample_dim='sample',
             )
 
-    test_pipeline.print()
-
-    result_dataset = test_pipeline.calculate(input_dataset)
+    result_dataset = tp.calculate(input_dataset)
     D = result_dataset.similarity.values
     print(D)
     assert np.isfinite(D).all(), "Distances are not finite"
@@ -77,8 +73,9 @@ for method in ["discrete", "continuous"]:
     dist_str = "Pairwise distances:\n" + ";".join(
         f"({i},{j}): {d:.2f}" for (i, j), d in zip(ij_pairs, dists)
     )
-    ax.legend()
     plt.title(dist_str, fontsize=10)
+
+    ax.legend()
     plt.savefig("%s.png"%method)
     plt.close()
 
