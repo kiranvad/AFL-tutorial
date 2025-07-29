@@ -26,50 +26,6 @@ def set_params(model, flat_params):
         p.data = new_data
         pointer += numel
 
-def finite_difference_hessian(f, x, epsilon=5e-3):
-    """
-    Compute the Hessian matrix of a scalar function f at input x using central finite differences.
-
-    Args:
-        f (callable): Function that takes a tensor x and returns a scalar tensor.
-        x (torch.Tensor): Input tensor of shape (d,) with requires_grad=False.
-        epsilon (float): Perturbation step size.
-
-    Returns:
-        hessian (torch.Tensor): Hessian matrix of shape (d, d).
-    """
-    x = x.detach().clone()
-    d = x.numel()
-    hessian = torch.zeros(d, d, dtype=x.dtype)
-
-    for i in range(d):
-        for j in range(d):
-            x_ijp = x.clone()
-            x_ijm = x.clone()
-            x_imp_jp = x.clone()
-            x_imp_jm = x.clone()
-
-            x_ijp[i] += epsilon
-            x_ijp[j] += epsilon
-
-            x_ijm[i] += epsilon
-            x_ijm[j] -= epsilon
-
-            x_imp_jp[i] -= epsilon
-            x_imp_jp[j] += epsilon
-
-            x_imp_jm[i] -= epsilon
-            x_imp_jm[j] -= epsilon
-
-            f_pp = f(x_ijp)
-            f_pm = f(x_ijm)
-            f_mp = f(x_imp_jp)
-            f_mm = f(x_imp_jm)
-
-            hessian[i, j] = (f_pp - f_pm - f_mp + f_mm) / (4 * epsilon ** 2)
-
-    return hessian
-
 def project_to_psd(H, tol=1e-8):
     """Projects a symmetric matrix H to the nearest PSD matrix."""
     # Symmetrize first
@@ -93,7 +49,8 @@ def laplace_log_evidence(model, likelihood, train_x, train_y, jitter=1e-8):
 
         return mll(output, train_y)
     
-    H = finite_difference_hessian(log_lik_fn, theta_hat)
+    # H = finite_difference_hessian(log_lik_fn, theta_hat)
+    H = hessian(log_lik_fn, theta_hat)
     H = 0.5 * (H + H.T) # make it symmetric
     d = H.shape[0]
     Sigma_inv = project_to_psd(-H, tol=jitter)
