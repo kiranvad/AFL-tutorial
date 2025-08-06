@@ -112,6 +112,7 @@ class DesignSpaceHierarchyCost(PipelineOp):
         component_dim:str=None,
         variables_order : List[str] = None,
         variables_offsets : List[float] = None,
+        scale : float = 0.1,
         output_variable: str = None,
         name: str = "DesignSpaceHierarchyCost",
     ) -> None:
@@ -124,6 +125,7 @@ class DesignSpaceHierarchyCost(PipelineOp):
         self.grid_dim = grid_dim
         self.component_dim = component_dim
         self.iteration = 1
+        self.scale = scale
 
     def calculate(self, dataset: xr.Dataset) -> Self:
         """Compute and store normalized cost over the full grid."""
@@ -149,7 +151,7 @@ class DesignSpaceHierarchyCost(PipelineOp):
             w = np.sort(np.random.dirichlet(np.ones(k),size=1))[0]
             dim_cost = []
             for j in range(k):
-                ell = 1/((w[j]*self.iteration)+1)
+                ell = 1/((w[j]/(self.iteration*self.scale))+1)
                 x = query.sel({self.component_dim: self.variables_order[j]}).values[i]
                 f_x_t = ell*np.exp(-(np.abs(x-self.variables_offsets[j])*ell))
                 dim_cost.append(1-f_x_t)
@@ -321,6 +323,7 @@ with Pipeline(name = "find_boundaries") as p:
         component_dim="ds_dim",
         variables_order=['temperature', 'protein', 'glycerol'],
         variables_offsets=[0.5, 0.0, 0.0],
+        scale=0.1,
         output_variable="hierarchy_cost",
         name="CompositionTemperatureHierarchyCost",
     ) 
@@ -437,7 +440,7 @@ def plot_progress(ds,
     return fig, axs
 
 max_samples = 100 
-num_restarts = 8
+num_restarts = 1
 
 for r in range(num_restarts):
     expenses = []
