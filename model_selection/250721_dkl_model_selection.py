@@ -60,10 +60,11 @@ class SASDataGenerator:
 class DeepKernelNetwork(nn.Module):
     """Neural network feature extractor for DKL"""
     
-    def __init__(self, input_dim=1, hidden_dims=[50, 50, 2]):
+    def __init__(self, input_dim=1, hidden_dims=[64, 64, 2]):
         super().__init__()
         layers = []
-        prev_dim = input_dim
+        prev_dim = input_dim 
+        self.dim = hidden_dims[-1]
         
         for hidden_dim in hidden_dims[:-1]:
             layers.extend([
@@ -84,21 +85,21 @@ class DeepKernelNetwork(nn.Module):
 class DKLModel(gpytorch.models.ExactGP):
     """Deep Kernel Learning model combining neural network with GP"""
     
-    def __init__(self, train_x, train_y, likelihood, feature_extractor):
+    def __init__(self, train_x, train_y, likelihood, phi):
         super().__init__(train_x, train_y, likelihood)
-        self.feature_extractor = feature_extractor
+        self.phi = phi
         
         # GP components
         self.mean_module = gpytorch.means.ConstantMean()
         
-        # Deep kernel: neural network features + RBF kernel
+        # Deep kernel: neural network features + Matern kernel
         self.covar_module = gpytorch.kernels.ScaleKernel(
-            gpytorch.kernels.RBFKernel(ard_num_dims=2)
+            gpytorch.kernels.MaternKernel(nu=1.5, ard_num_dims=self.phi.dim)
         )
         
     def forward(self, x):
         # Extract features using neural network
-        projected_x = self.feature_extractor(x)
+        projected_x = self.phi(x)
         
         # Apply GP
         mean_x = self.mean_module(projected_x)
@@ -112,19 +113,22 @@ class DKLTrainer:
     def __init__(self, model, likelihood, lr=0.01):
         self.model = model
         self.likelihood = likelihood
-        params = [{'params': model.feature_extractor.parameters()},
+        params = [{'params': model.phi.parameters()},
                   {'params': model.covar_module.parameters()},
                   {'params': model.mean_module.parameters()},
                   {'params': likelihood.parameters()}
                 ]
         self.optimizer = torch.optim.Adam(params, lr=lr)
+
         self.mll = gpytorch.mlls.ExactMarginalLogLikelihood(likelihood, model)
         
     def train(self, train_x, train_y, epochs=100, verbose=True):
         """Train the DKL model"""
         self.model.train()
         self.likelihood.train()
-        
+        self.scheduler = torch.optim.lr_scheduler.MultiStepLR(self.optimizer, 
+                                                     milestones=[0.5 * epochs], 
+                                                     gamma=0.1)
         losses = []
         
         for epoch in range(epochs):
@@ -133,6 +137,7 @@ class DKLTrainer:
             loss = -self.mll(output, train_y)
             loss.backward()
             self.optimizer.step()
+            self.scheduler.step()
             
             losses.append(loss.item())
             
@@ -149,12 +154,8 @@ def compute_predictive_probability(model, likelihood, x_test, y_test):
     likelihood.eval()
     
     with torch.no_grad():
-        # Get predictive distribution
         pred_dist = model(x_test)
-        # Include noise through likelihood
         pred_dist_with_noise = likelihood(pred_dist)
-        
-        # Compute log probability
         log_prob = pred_dist_with_noise.log_prob(y_test)
         
         return log_prob, pred_dist_with_noise
@@ -175,7 +176,7 @@ def plot_training_results(losses, train_data, model, likelihood, data_generator)
     model.eval()
     with torch.no_grad():
         train_x, train_y = train_data
-        features = model.feature_extractor(train_x).numpy()
+        features = model.phi(train_x).numpy()
         
     scatter = axes[0, 1].scatter(features[:, 0], 
                                  features[:, 1], 
@@ -195,11 +196,14 @@ def plot_training_results(losses, train_data, model, likelihood, data_generator)
         # Sample some points in feature space
         test_points = torch.logspace(np.log10(0.001), np.log10(0.5), 50)
         X, Y = torch.meshgrid(test_points, test_points, indexing='ij')
-        test_features = torch.stack([X.flatten(), Y.flatten()], dim=1)
+        test_features = torch.stack([X.flatten(), Y.flatten()], dim=0)
         
         # Compute kernel matrix for a reference point
-        ref_point = torch.zeros(1, 2)
-        kernel_values = model.covar_module(ref_point, test_features).evaluate()
+        ref_point = torch.zeros(2, 1)
+        import pdb 
+        pdb.set_trace()
+        kernel_values = model.covar_module(model.phi(ref_point), model.phi(test_features)).evaluate()
+
         kernel_matrix = kernel_values.reshape(50, 50)
     
     im = ax.imshow(kernel_matrix.numpy(), extent=[-2, 2, -2, 2], origin='lower', cmap='viridis')
@@ -283,11 +287,11 @@ def main():
     print(f"Training data shape: {train_x.shape}, {train_y.shape}")
     
     # Initialize model components first
-    feature_extractor = DeepKernelNetwork(input_dim=1, hidden_dims=[50, 50, 2])
+    phi = DeepKernelNetwork(input_dim=1, hidden_dims=[128, 128, 8])
     likelihood = gpytorch.likelihoods.GaussianLikelihood()
     
     # Create DKL model with training data
-    model = DKLModel(train_x, train_y, likelihood, feature_extractor)
+    model = DKLModel(train_x, train_y, likelihood, phi)
     
     # Set to training mode
     model.train()
@@ -295,18 +299,7 @@ def main():
     
     print("Training DKL model...")
     trainer = DKLTrainer(model, likelihood, lr=0.01)
-    losses = trainer.train(train_x, train_y, epochs=100, verbose=True)
-    
-    # Generate test data
-    print("Generating test data...")
-    test_curves, _ = generator.generate_dataset(n_curves=50, radius_range=(10, 100))
-    test_x = torch.cat([q for q, _ in test_curves]).unsqueeze(-1)
-    test_y = torch.cat([intensity for _, intensity in test_curves])
-    
-    # Compute predictive probabilities
-    print("Computing predictive probabilities...")
-    log_prob, _ = compute_predictive_probability(model, likelihood, test_x, test_y)
-    print(f"Average log probability: {log_prob.mean().item():.4f}")
+    losses = trainer.train(train_x, train_y, epochs=2, verbose=True)
     
     # Create plots
     print("Creating plots...")
@@ -321,7 +314,7 @@ def main():
     
     # Print model summary
     print("\nModel Summary:")
-    print(f"Feature extractor: {sum(p.numel() for p in feature_extractor.parameters())} parameters")
+    print(f"Feature extractor: {sum(p.numel() for p in phi.parameters())} parameters")
     print(f"GP kernel lengthscale: {model.covar_module.base_kernel.lengthscale}")
     print(f"GP output scale: {model.covar_module.outputscale.item():.4f}")
     print(f"Likelihood noise: {likelihood.noise.item():.4f}")

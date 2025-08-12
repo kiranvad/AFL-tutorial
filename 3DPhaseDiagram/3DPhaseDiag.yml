@@ -341,8 +341,6 @@ dependencies:
       - adbc-driver-manager==1.6.0
       - adbc-driver-postgresql==1.6.0
       - adbc-driver-sqlite==1.6.0
-      - afl-agent==0.1.dev488+gc5452ad
-      - afl-automation==0.1.0
       - aiofiles==24.1.0
       - aiosqlite==0.21.0
       - alembic==1.16.1
@@ -446,4 +444,4 @@ dependencies:
       - xgboost==3.0.2
       - zarr==2.18.7
       - zeroconf==0.147.0
-prefix: /Users/kiran/Documents/codebase/envs/3DPhaseDiag
+prefix: /Users/knv2/Documents/codebase/envs/3DPhaseDiag

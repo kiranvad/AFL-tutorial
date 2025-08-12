@@ -19,7 +19,10 @@ class ExactGPModel(gpytorch.models.ExactGP):
         return gpytorch.distributions.MultivariateNormal(mean, cov)
 
 def compute_hessian_autograd(model, likelihood, x, y):
-    """Compute Hessian using pure autograd - more stable approach"""
+    """Compute Hessian using pure autograd - more stable approach
+    
+    Notes: implementation in `get_hessian` should be prefered.
+    """
     
     params = list(model.parameters())
     params_flat = torch.cat([p.flatten() for p in params])
@@ -100,6 +103,8 @@ def project_to_psd(H):
     
     This function makes the stability modification of 
     Hessian based on arXiv:2403.09215
+
+    Notes: Curently this doesn't seem to make the model posteriors better.
     """
     H = (H + H.T) / 2
     eigvals, eigvecs = torch.linalg.eigh(H)
@@ -113,9 +118,10 @@ def laplace_log_evidence(model, likelihood, train_x, train_y):
     likelihood.eval()
     # H, log_lik = compute_hessian_autograd(model, likelihood, train_x, train_y)
     H, log_lik = get_hessian(model, likelihood, train_x, train_y)
-    H = project_to_psd(H)
+    # H = project_to_psd(H)
     d = H.shape[0]
-    Sigma_inv = -H
+    Sigma_inv = -H 
+    print("Sigma^{-1}: ", Sigma_inv)
 
     sign, logdet = torch.linalg.slogdet(Sigma_inv)
 
