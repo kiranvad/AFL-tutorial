@@ -9,7 +9,7 @@ import mpltern
 from AFL.double_agent_tutorial.instruments.tutorial import get_virtual_instrument
 from AFL.double_agent.Pipeline import Pipeline
 from AFL.double_agent import SavgolFilter, Similarity, SpectralClustering, BarycentricGrid
-from AFL.double_agent.GPyTorchExtrapolator import DirichletGPExtrapolator
+from AFL.double_agent.PyTorchExtrapolator import DirichletGPExtrapolator
 
 import pdb 
 
@@ -69,11 +69,21 @@ with Pipeline() as test_pipeline:
         output_variable='composition_grid',
         components = ['a','b','c'],
         sample_dim='grid',
+        pts_per_row=50
     )
 
 test_pipeline.print()
 result_dataset = test_pipeline.calculate(input_dataset)
-print(result_dataset)
+mcmc_params = {"num_samples":100,
+               "num_warmup":100,
+               "verbose":True,
+               "method":"mcmc"
+            }
+mll_params = {"learning_rate": 1e-1, 
+            "n_iterations": 500, 
+            "verbose": True,
+            "method":"mll"
+        }
 
 extrapolator = DirichletGPExtrapolator(
     feature_input_variable="composition",
@@ -82,13 +92,14 @@ extrapolator = DirichletGPExtrapolator(
     grid_variable="composition_grid",
     grid_dim="grid",
     sample_dim="sample",
-    params={"learning_rate": 1e-1, "n_iterations": 500, "verbose": True}
+    params= mll_params
 )
 result = extrapolator.calculate(result_dataset)
 print(result.output)
 print("Labels : ", result.output["gp_mean"].shape)
 print("Probabilities: ", result.output["gp_y_prob"].shape)
 print("Entropy: ", result.output["gp_entropy"].shape)
+print("Gradient of Entropy: ", result.output["gp_entropy_gradient"].shape)
 
 fig = plt.figure(figsize=(4*2, 4*2))
 fig.subplots_adjust(wspace=0.5, hspace=0.5)
@@ -130,10 +141,27 @@ ax.set_title("Labeles on a grid")
 
 ax = fig.add_subplot(2,2,4, projection = 'ternary')
 ax.scatter(result_dataset["composition_grid"][:,0], 
-               result_dataset["composition_grid"][:,1],
-               result_dataset["composition_grid"][:,2],
-               c = result.output["gp_entropy"]
-            )
+           result_dataset["composition_grid"][:,1],
+           result_dataset["composition_grid"][:,2],
+           c = result.output["gp_entropy"],
+           cmap = "Blues"
+        )
+
+norms = np.linalg.norm(result.output["gp_entropy_gradient"], axis=1, keepdims=True)  # shape (N, 1)
+grad = result.output["gp_entropy_gradient"].values 
+mean_component = grad.sum(axis=1, keepdims=True) / 3.0
+grad -= mean_component
+scale_factor = 0.1  
+disp_unit = grad/ (norms + 1e-12)  # add epsilon to avoid division by zero
+disp_scaled = disp_unit * (norms * scale_factor)
+ax.quiver(result_dataset["composition_grid"][:,0],
+          result_dataset["composition_grid"][:,1],
+          result_dataset["composition_grid"][:,2],
+          disp_scaled[:,0],
+          disp_scaled[:,1],
+          disp_scaled[:,2],
+        )
+
 ax.set_title("Entropy")
-plt.savefig("1.png")
+plt.savefig(f"02_gpytorch_{extrapolator.params['method']}.png", dpi=300)
 plt.close()

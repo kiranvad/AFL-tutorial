@@ -267,7 +267,7 @@ def main():
     # Plot 3: Kernel function k(x, 0)
     ax3 = axes[1, 0]
     x_origin = torch.zeros(1, 1)
-    k_origin = covar_module(x_test, x_origin).squeeze().numpy()
+    k_origin = covar_module(x_test, x_origin).squeeze(-1).detach().numpy()
     
     ax3.plot(x_np, k_origin, 'b-', linewidth=3, label='k(x, 0)')
     ax3.set_title('Kernel Function k(x, 0)', fontsize=14)
