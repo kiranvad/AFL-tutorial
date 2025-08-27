@@ -4,14 +4,15 @@ import xarray as xr
 from AFL.double_agent import PipelineOp
 import textwrap
 from scipy.signal import find_peaks, peak_widths
+from typing import Optional, Dict, Any
 
-class ArgMaxOverDimension(PipelineOp):
+class ArgMax(PipelineOp):
     def __init__(
         self,
         input_variable: str = "composition_utility",
-        coordinate_dims :  List[str] = ["protein", "glycerol"],
+        coordinate_dims= ["protein", "glycerol"],
         output_variable: str = "next_sample",
-        name: str = "QueryStrategyCompositionSpace",
+        name: str = "ArgMax",
     ) -> None:
         super().__init__(
             name=name, 
@@ -27,12 +28,12 @@ class ArgMaxOverDimension(PipelineOp):
         coordinates that match the input `dims`
         """
         ux = dataset[self.input_variable]
-        x = np.column_stack([ux.coords[name].values for name in self.coordinate_dims])
+        x = ux.domain
         x_opt = x[np.argmax(ux.values).item(),:] # x^* = argmax_{x} u(x)
-
-        output = xr.DataArray(x_opt.reshape(-1, len(self.coordinate_dims)),
-                              dims=("n_counts", "comp_dim"),
-                              coords={"comp_dim": self.coordinate_dims}
+        
+        output = xr.DataArray(x_opt.reshape(-1, x.shape[-1]),
+                              dims=("n_counts", "d_comp"),
+                              coords={"d_comp": self.coordinate_dims}
                             )
         self.output[self.output_variable] = output
         self.output[self.output_variable].attrs["description"] = textwrap.dedent("""
@@ -45,8 +46,8 @@ class FullWidthHalfMaximum1D(PipelineOp):
     def __init__(
         self,
         input_variable: str = "utility",
-        coordinate_dim: str = "entropy_dim",
         output_variable: str = "next_sample",
+        params: Optional[Dict[str, Any]] = None,
         name: str = "FullWidthHalfMaximum1D",
     ) -> None:
         super().__init__(
@@ -54,13 +55,13 @@ class FullWidthHalfMaximum1D(PipelineOp):
             input_variable=[input_variable], 
             output_variable=output_variable
         )
-        self.coordinate_dim = coordinate_dim
+        self.params = params
     
     def calculate(self, dataset: xr.Dataset) -> Self:
         u = dataset[self.input_variable]
-        x = u.coords[self.coordinate_dim]
+        x = u.domain
 
-        x_opt = self.optimize(x, u.values)
+        x_opt = self.optimize(x, u.values, **self.params)
         
         output = xr.DataArray(np.asarray(x_opt).reshape(-1),
                               dims=("n_next"),

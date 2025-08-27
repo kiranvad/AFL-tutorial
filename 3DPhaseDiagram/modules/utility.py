@@ -2,17 +2,17 @@ from typing import List, Self
 import numpy as np
 import xarray as xr
 from AFL.double_agent import PipelineOp
-import textwrap
 
 class MarginalEntropyOverDimension(PipelineOp):
     def __init__(
         self,
-        input_variable: str = "acquisiton",
-        coordinate_dims :  List[str]= ['protein', 'glycerol'],
+        input_variable: str = "probability",
+        coordinate_dims :  List[str]= ['temperature'],
         component_dim: str = "ds_dim",
-        grid_variable:str = "design_space_grid",        
+        grid_variable:str = "design_space_grid", 
+        output_dim :str = "n_comp",       
         output_variable: str = "composition_utility",
-        name: str = "UtilityMarginalEntropy",
+        name: str = "MarginalEntropyOverDimension",
     ) -> None:
         super().__init__(
             name=name, 
@@ -21,32 +21,32 @@ class MarginalEntropyOverDimension(PipelineOp):
         )
         self.coordinate_dims = coordinate_dims
         self.grid_variable = grid_variable 
-        self.dim = component_dim
+        self.dim = component_dim 
+        self.output_dim = output_dim
 
     def calculate(self, dataset: xr.Dataset) -> Self:
         grid = dataset[self.grid_variable]
-        grid_nonmarginal = grid.sel({self.dim: self.coordinate_dims})
+        grid_nonmarginal = grid.drop_sel({self.dim: self.coordinate_dims})
         unique_nonmarginal = grid_nonmarginal.to_pandas().drop_duplicates().reset_index(drop=True)
 
         x = unique_nonmarginal.values
         num_comps = len(unique_nonmarginal)
         ux = np.zeros(num_comps)
 
-        Pr_yi_x = dataset[self.input_variable].values 
+        Pr = dataset[self.input_variable].values 
         for i, xi in enumerate(x):
             # Find grid points for every unique non-marginal point
             squared_distances = np.sum((xi - grid_nonmarginal.values) ** 2, axis=1)
-            idx = np.argwhere(squared_distances<1e-5)
-            Pr_yi_x_marginal = Pr_yi_x[idx,:].mean(axis=0) # marginalization over the rest of the dimensions
-            ux_i =  -np.sum(np.log(Pr_yi_x_marginal) * Pr_yi_x_marginal, axis=-1) # Marginal entropy as the utility
+            idx = np.argwhere(squared_distances<1e-5) # indices for different coordinate_dims of x 
+            Pr_xi = Pr[idx,:].squeeze() # probability at xi over different coordinate_dims
+            Pr_marginal = Pr_xi.mean(axis=0) # marginalization over the coordinate_dims
+            ux_i =  -np.sum(np.log(Pr_marginal) * Pr_marginal, axis=-1) # Marginal entropy as the utility
             ux[i] = ux_i.item()
   
-        coords = {"points": np.arange(num_comps)}
-        for i, name in enumerate(self.coordinate_dims):
-            coords[name] = ("points", x[:, i])
-        output = xr.DataArray(ux, dims=("points",), coords=coords)
+        output = xr.DataArray(ux.squeeze(), dims=self.output_dim)
         self.output[self.output_variable] = output # type: ignore
-        self.output[self.output_variable].attrs["description"] = "Entropy calculated by marginalizing probability over certain dimension(s)" # type: ignore
+        self.output[self.output_variable].attrs["description"] = "Entropy calculated by marginalizing probability over certain dimension(s)" # type: ignore 
+        self.output[self.output_variable].attrs["domain"] = x.squeeze()
 
         return self    
     
@@ -55,10 +55,10 @@ class MarginalEntropyAlongDimension(PipelineOp):
         self,
         input_variable: str = "probability",
         conditioning_point : str = "next_composition",
-        complement_coordinate_dims :  List[str]= ['protein', 'glycerol'],
-        entropy_coordinate_dim:str = "temperature",
+        coordinate_dim:str = "temperature",
         grid_variable:str = "design_space_grid",        
         component_dim: str = "ds_dim",
+        output_dim :str = "n_temp", 
         output_variable: str = "marginal_entropy_along_dim",
         name: str = "MarginalEntropyAlongDimension",
     ) -> None:
@@ -67,33 +67,33 @@ class MarginalEntropyAlongDimension(PipelineOp):
             input_variable=[input_variable], 
             output_variable=output_variable
         )
-        self.complement_dims = complement_coordinate_dims
-        self.entropy_dim = entropy_coordinate_dim
+        self.coordinate_dim = coordinate_dim
         self.conditioning_point = conditioning_point       
         self.grid_variable = grid_variable 
         self.dim = component_dim
+        self.output_dim = output_dim
 
     def calculate(self, dataset: xr.Dataset) -> Self:
         cp = dataset[self.conditioning_point]
 
         grid = dataset[self.grid_variable]
-        grid_complement_dims = grid.sel({self.dim:self.complement_dims}).values
-        grid_entropy_dim = grid.sel({self.dim:self.entropy_dim}).values
+        all_coordinate_dims = grid[self.dim].values.tolist()
+        complement_dims = [d for d in all_coordinate_dims if d not in self.coordinate_dim]
+        grid_complement_dims = grid.sel({self.dim:complement_dims}).values
 
         squared_distances = np.sum((cp.values - grid_complement_dims) ** 2, axis=1)
         idx = np.argwhere(squared_distances<1e-5)
+        T = grid.sel({self.dim:self.coordinate_dim}).values[idx]
 
         Pr = dataset[self.input_variable]
 
         # Extract utility at cp : u_{cp}(entropy_dim)
         Pr_cp = Pr.values[idx,:].copy() # type: ignore 
-        u =  -np.sum(np.log(Pr_cp) * Pr_cp, axis=-1) # Marginal entropy as the utility
+        vT =  -np.sum(np.log(Pr_cp) * Pr_cp, axis=-1) # Marginal entropy as the utility
 
-        output = xr.DataArray(u.squeeze(), 
-                              dims="entropy_dim",
-                              coords={"entropy_dim": grid_entropy_dim[idx].squeeze()}
-                            )
+        output = xr.DataArray(vT.squeeze(), dims = self.output_dim)
         self.output[self.output_variable] = output # type: ignore
-        self.output[self.output_variable].attrs["description"] = "Utility calculated along the temperature axis" # type: ignore
+        self.output[self.output_variable].attrs["description"] = "Utility calculated along the temperature axis" # type: ignore 
+        self.output[self.output_variable].attrs["domain"] = T.squeeze()
 
         return self
