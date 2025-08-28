@@ -10,16 +10,17 @@ class ArgMax(PipelineOp):
     def __init__(
         self,
         input_variable: str = "composition_utility",
-        coordinate_dims= ["protein", "glycerol"],
-        output_variable: str = "next_sample",
+        grid_variable:str="composition_marginal_domain",
+        output_prefix:str="composition",
         name: str = "ArgMax",
     ) -> None:
+        output_variable = f"{output_prefix}_next"
         super().__init__(
             name=name, 
             input_variable=[input_variable], 
             output_variable=output_variable
         )
-        self.coordinate_dims = coordinate_dims
+        self.grid_variable = grid_variable
 
     def calculate(self, dataset: xr.Dataset) -> Self:
         """Implements argmax query strategy.
@@ -28,12 +29,11 @@ class ArgMax(PipelineOp):
         coordinates that match the input `dims`
         """
         ux = dataset[self.input_variable]
-        x = ux.domain
-        x_opt = x[np.argmax(ux.values).item(),:] # x^* = argmax_{x} u(x)
+        x = dataset[self.grid_variable]
+        x_opt = x.values[np.argmax(ux.values).item(),:] # x^* = argmax_{x} u(x)
         
         output = xr.DataArray(x_opt.reshape(-1, x.shape[-1]),
-                              dims=("n_counts", "d_comp"),
-                              coords={"d_comp": self.coordinate_dims}
+                              dims=(self._prefix_output("next_n"), x.dims[1]),
                             )
         self.output[self.output_variable] = output
         self.output[self.output_variable].attrs["description"] = textwrap.dedent("""
@@ -46,25 +46,28 @@ class FullWidthHalfMaximum1D(PipelineOp):
     def __init__(
         self,
         input_variable: str = "utility",
+        grid_variable:str="temperature_marginal_domain",
         output_variable: str = "next_sample",
-        params: Optional[Dict[str, Any]] = None,
+        params: Optional[Dict[str, Any]] = {},
+        output_prefix:str="temperature",
         name: str = "FullWidthHalfMaximum1D",
     ) -> None:
+        output_variable = f"{output_prefix}_next"
         super().__init__(
             name=name, 
             input_variable=[input_variable], 
             output_variable=output_variable
         )
         self.params = params
+        self.grid_variable = grid_variable
     
     def calculate(self, dataset: xr.Dataset) -> Self:
         u = dataset[self.input_variable]
-        x = u.domain
+        x = dataset[self.grid_variable]
 
-        x_opt = self.optimize(x, u.values, **self.params)
-        
-        output = xr.DataArray(np.asarray(x_opt).reshape(-1),
-                              dims=("n_next"),
+        x_opt = self.optimize(x.values, u.values, **self.params)
+        output = xr.DataArray(np.atleast_1d(x_opt.squeeze()),
+                              dims=self._prefix_output("next_n"),
                             )
         self.output[self.output_variable] = output
         self.output[self.output_variable].attrs["description"] = textwrap.dedent("""

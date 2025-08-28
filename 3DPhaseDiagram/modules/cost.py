@@ -91,7 +91,6 @@ class DesignSpaceHierarchyCost(PipelineOp):
         self.output[self.output_variable].attrs[
             "description"
         ] = f"Cost per sample evaluated on {self.input_variable}"
-        self.output[self.output_variable].attrs["domain"] = grid.values.squeeze()
 
         return self
     
@@ -141,7 +140,6 @@ class BinaryProbabilityCost(PipelineOp):
         output = xr.DataArray(cost, dims=self.dim)
         self.output[self.output_variable] = output
         self.output[self.output_variable].attrs["description"] = "A probability based cost."
-        self.output[self.output_variable].attrs["domain"] = grid.values.squeeze()
 
         return self
 
@@ -152,24 +150,26 @@ class MarginalCost(PipelineOp):
         coordinate_dims :  List[str]= ['temperature'],
         component_dim: str = "ds_dim",
         grid_variable:str = "design_space_grid",
-        output_dim:str = "marginalized_dim",        
-        output_variable: str = "marginalized_utility",
+        output_variable:str="cost",
         name: str = "MarginalCost",
     ) -> None:
         super().__init__(
             name=name, 
             input_variable=[input_variable], 
-            output_variable=output_variable
+            output_variable=output_variable,
         )
         self.coordinate_dims = coordinate_dims
         self.grid_variable = grid_variable 
         self.dim = component_dim 
-        self.output_dim = output_dim
 
     def calculate(self, dataset: xr.Dataset) -> Self:
         grid = dataset[self.grid_variable]
         cost = dataset[self.input_variable] 
-        
+
+        all_coordinate_dims = grid[self.component_dim].values.tolist()
+        complement_dims = [d for d in all_coordinate_dims if d not in self.coordinate_dims]
+        self.output_prefix = "_".join(i for i in complement_dims)
+
         grid_nonmarginal = grid.drop_sel({self.dim: self.coordinate_dims})
         unique_nonmarginal = grid_nonmarginal.to_pandas().drop_duplicates().reset_index(drop=True)
         x = unique_nonmarginal.values 
@@ -183,11 +183,21 @@ class MarginalCost(PipelineOp):
             cost_xi = cost.values[idx].squeeze() # cost across the coordinate_dims
             marginal_cost[i] = cost_xi.mean() # marginal over other dims 
 
-        output = xr.DataArray(marginal_cost, dims=self.output_dim)
+        output = xr.DataArray(marginal_cost, dims=self._prefix_output("n"))
         self.output[self.output_variable] = output
         self.output[self.output_variable].attrs["description"] = "A probability based cost."
-        self.output[self.output_variable].attrs["domain"] = x 
-        
+
+
+        domain_variable = self._prefix_output("domain")
+        if not domain_variable in dataset:
+            all_coordinate_dims = grid[self.dim].values.tolist()
+            complement_dims = [d for d in all_coordinate_dims if d not in self.coordinate_dims]
+            domain = xr.DataArray(x.reshape(-1, len(complement_dims)), 
+                                dims=(self._prefix_output("n"), self._prefix_output("d")),
+                                coords={self._prefix_output("d"): complement_dims}
+                                )
+            self.output[domain_variable] = domain
+            self.output[domain_variable].attrs["description"] = f"Domain of the {self.output_variable} computed." # type: ignore
         return self
 
 class SlicedCost(PipelineOp):
@@ -195,32 +205,31 @@ class SlicedCost(PipelineOp):
         self,
         input_variable: str = "cost",
         conditioning_point : str = "next_composition",
-        complement_coordinate_dims :  List[str]= ['protein', 'glycerol'],
-        sliced_coordinate_dim:str = "temperature",
+        coordinate_dim:str = "temperature",
         grid_variable:str = "design_space_grid",        
         component_dim: str = "ds_dim",
-        output_dim : str = "sliced_dim",
-        output_variable: str = "sliced_cost",
+        output_variable:str="temperature",
         name: str = "SlicedCost",
     ) -> None:
         super().__init__(
             name=name, 
             input_variable=[input_variable], 
-            output_variable=output_variable
+            output_variable=output_variable,
+            output_prefix = f"{coordinate_dim}"
         )
-        self.complement_dims = complement_coordinate_dims
-        self.slice_dim = sliced_coordinate_dim
+        self.coordinate_dim = coordinate_dim
         self.conditioning_point = conditioning_point       
         self.grid_variable = grid_variable 
         self.dim = component_dim 
-        self.output_dim = output_dim
 
     def calculate(self, dataset: xr.Dataset) -> Self:
         cp = dataset[self.conditioning_point]
 
         grid = dataset[self.grid_variable]
-        grid_complement_dims = grid.sel({self.dim:self.complement_dims}).values
-        grid_slice_dim = grid.sel({self.dim:self.slice_dim}).values
+        all_coordinate_dims = grid[self.dim].values.tolist()
+        complement_dims = [d for d in all_coordinate_dims if d not in self.coordinate_dim]
+        grid_complement_dims = grid.sel({self.dim:complement_dims}).values
+        grid_slice_dim = grid.sel({self.dim:self.coordinate_dim}).values
 
         squared_distances = np.sum((cp.values - grid_complement_dims) ** 2, axis=1)
         idx = np.argwhere(squared_distances<1e-5)
@@ -229,11 +238,15 @@ class SlicedCost(PipelineOp):
         # Extract cost at cp : c_{cp}(slice_dim)
         sliced_cost = cost.values[idx]
 
-        output = xr.DataArray(sliced_cost.squeeze(), dims=self.output_dim)
+        output = xr.DataArray(sliced_cost.squeeze(), dims=self._prefix_output("n"))
         self.output[self.output_variable] = output # type: ignore
         self.output[self.output_variable].attrs["description"] = "Utility calculated along the temperature axis" # type: ignore
-        self.output[self.output_variable].attrs["domain"] = grid_slice_dim[idx].squeeze() 
 
+        domain_variable = self._prefix_output("domain")
+        if not domain_variable in dataset:
+            domain = xr.DataArray(grid_slice_dim[idx].squeeze(), dims=self._prefix_output("n"))
+            self.output[domain_variable] = domain
+            self.output[domain_variable].attrs["description"] = f"Domain of the {self.output_variable} computed." # type: ignore
         return self
 
 class UtilityWithCost(PipelineOp):
@@ -308,7 +321,5 @@ class UtilityWithCost(PipelineOp):
         output = xr.DataArray(acqv_cost, dims=acqv.dims, coords=acqv.coords)
         self.output[self.output_variable] = output
         self.output[self.output_variable].attrs["description"] = "Acquisition with Cost" 
-        self.output[self.output_variable].attrs["domain"] = acqv.domain
 
-        
         return self
