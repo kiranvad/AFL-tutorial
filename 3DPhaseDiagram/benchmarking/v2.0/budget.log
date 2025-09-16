@@ -1,0 +1,1225 @@
+Case Studies:   0%|          | 0/5 [00:00<?, ?it/s]Case Studies:   0%|          | 0/5 [00:00<?, ?it/s, case=P1]
+Runs:   0%|          | 0/3 [00:00<?, ?it/s][A
+
+Measurements: 0 [00:00, ?/s][A[A
+
+Measurements: 7 [00:03,  2.04/s][A[A
+
+Measurements: 7 [00:03,  2.04/s, Budget=3.03e+03][A[A
+
+Measurements: 8 [00:06,  1.05/s, Budget=3.03e+03][A[A
+
+Measurements: 8 [00:06,  1.05/s, Budget=3.14e+03][A[A
+
+Measurements: 9 [00:10,  1.44s/, Budget=3.14e+03][A[A
+
+Measurements: 9 [00:10,  1.44s/, Budget=3.40e+03][A[A
+
+Measurements: 10 [00:13,  1.87s/, Budget=3.40e+03][A[A
+
+Measurements: 10 [00:13,  1.87s/, Budget=3.72e+03][A[A
+
+Measurements: 11 [00:17,  2.29s/, Budget=3.72e+03][A[A
+
+Measurements: 11 [00:17,  2.29s/, Budget=4.10e+03][A[A
+
+Measurements: 12 [00:20,  2.61s/, Budget=4.10e+03][A[A
+
+Measurements: 12 [00:20,  2.61s/, Budget=5.19e+03][A[A
+
+Measurements: 13 [00:25,  3.07s/, Budget=5.19e+03][A[A
+
+Measurements: 13 [00:25,  3.07s/, Budget=5.51e+03][A[A
+
+Measurements: 14 [00:28,  3.29s/, Budget=5.51e+03][A[A
+
+Measurements: 14 [00:28,  3.29s/, Budget=5.51e+03][A[A
+
+Measurements: 15 [00:33,  3.61s/, Budget=5.51e+03][A[A
+
+Measurements: 15 [00:33,  3.61s/, Budget=5.71e+03][A[A
+
+Measurements: 16 [00:37,  3.82s/, Budget=5.71e+03][A[A
+
+Measurements: 16 [00:37,  3.82s/, Budget=6.27e+03][A[A
+
+Measurements: 17 [00:42,  3.98s/, Budget=6.27e+03][A[A
+
+Measurements: 17 [00:42,  3.98s/, Budget=6.38e+03][A[A
+
+Measurements: 18 [00:46,  3.99s/, Budget=6.38e+03][A[A
+
+Measurements: 18 [00:46,  3.99s/, Budget=6.78e+03][A[A
+
+Measurements: 19 [00:50,  4.09s/, Budget=6.78e+03][A[A
+
+Measurements: 19 [00:50,  4.09s/, Budget=6.96e+03][A[A
+
+Measurements: 20 [00:55,  4.27s/, Budget=6.96e+03][A[A
+
+Measurements: 20 [00:55,  4.27s/, Budget=7.15e+03][A[A
+
+Measurements: 21 [00:58,  4.07s/, Budget=7.15e+03][A[A
+
+Measurements: 21 [00:58,  4.07s/, Budget=7.26e+03][A[A
+
+Measurements: 22 [01:03,  4.15s/, Budget=7.26e+03][A[A
+
+Measurements: 22 [01:03,  4.15s/, Budget=7.31e+03][A[A
+
+Measurements: 23 [01:07,  4.20s/, Budget=7.31e+03][A[A
+
+Measurements: 23 [01:07,  4.20s/, Budget=7.43e+03][A[A
+
+Measurements: 24 [01:11,  4.10s/, Budget=7.43e+03][A[A
+
+Measurements: 24 [01:11,  4.10s/, Budget=7.48e+03][A[A
+
+Measurements: 25 [01:15,  4.04s/, Budget=7.48e+03][A[A
+
+Measurements: 25 [01:15,  4.04s/, Budget=7.78e+03][A[A
+
+Measurements: 26 [01:19,  4.03s/, Budget=7.78e+03][A[A
+
+Measurements: 26 [01:19,  4.03s/, Budget=7.99e+03][A[A
+
+Measurements: 27 [01:23,  4.11s/, Budget=7.99e+03][A[A
+
+Measurements: 27 [01:23,  4.11s/, Budget=8.37e+03][A[A
+
+Measurements: 28 [01:27,  4.13s/, Budget=8.37e+03][A[A
+
+Measurements: 28 [01:27,  4.13s/, Budget=8.53e+03][A[A
+
+Measurements: 29 [01:32,  4.31s/, Budget=8.53e+03][A[A
+
+Measurements: 29 [01:32,  4.31s/, Budget=9.10e+03][A[A
+
+Measurements: 30 [01:37,  4.47s/, Budget=9.10e+03][A[A
+
+Measurements: 30 [01:37,  4.47s/, Budget=9.42e+03][A[A
+
+Measurements: 31 [01:41,  4.45s/, Budget=9.42e+03][A[A
+
+Measurements: 31 [01:41,  4.45s/, Budget=9.61e+03][A[A
+
+Measurements: 32 [01:45,  4.40s/, Budget=9.61e+03][A[A
+
+Measurements: 32 [01:45,  4.40s/, Budget=9.63e+03][A[A
+
+Measurements: 33 [01:51,  4.75s/, Budget=9.63e+03][A[A
+
+Measurements: 33 [01:51,  4.75s/, Budget=1.06e+04][A[A
+Runs:  33%|███▎      | 1/3 [01:51<03:43, 111.84s/it][A
+
+
+Measurements: 0 [00:00, ?/s][A[A[A
+
+                                                  [A[A
+
+
+Measurements: 7 [00:03,  2.17/s][A[A[A
+
+
+Measurements: 7 [00:03,  2.17/s, Budget=2.42e+03][A[A[A
+
+
+Measurements: 8 [00:06,  1.06/s, Budget=2.42e+03][A[A[A
+
+
+Measurements: 8 [00:06,  1.06/s, Budget=2.66e+03][A[A[A
+
+
+Measurements: 9 [00:09,  1.27s/, Budget=2.66e+03][A[A[A
+
+
+Measurements: 9 [00:09,  1.27s/, Budget=3.43e+03][A[A[A
+
+
+Measurements: 10 [00:12,  1.74s/, Budget=3.43e+03][A[A[A
+
+
+Measurements: 10 [00:12,  1.74s/, Budget=4.20e+03][A[A[A
+
+
+Measurements: 11 [00:16,  2.27s/, Budget=4.20e+03][A[A[A
+
+
+Measurements: 11 [00:16,  2.27s/, Budget=4.48e+03][A[A[A
+
+
+Measurements: 12 [00:21,  2.87s/, Budget=4.48e+03][A[A[A
+
+
+Measurements: 12 [00:21,  2.87s/, Budget=4.69e+03][A[A[A
+
+
+Measurements: 13 [00:24,  3.02s/, Budget=4.69e+03][A[A[A
+
+
+Measurements: 13 [00:24,  3.02s/, Budget=4.79e+03][A[A[A
+
+
+Measurements: 14 [00:28,  3.16s/, Budget=4.79e+03][A[A[A
+
+
+Measurements: 14 [00:28,  3.16s/, Budget=4.98e+03][A[A[A
+
+
+Measurements: 15 [00:32,  3.52s/, Budget=4.98e+03][A[A[A
+
+
+Measurements: 15 [00:32,  3.52s/, Budget=5.54e+03][A[A[A
+
+
+Measurements: 16 [00:36,  3.63s/, Budget=5.54e+03][A[A[A
+
+
+Measurements: 16 [00:36,  3.63s/, Budget=6.44e+03][A[A[A
+
+
+Measurements: 17 [00:40,  3.80s/, Budget=6.44e+03][A[A[A
+
+
+Measurements: 17 [00:40,  3.80s/, Budget=6.53e+03][A[A[A
+
+
+Measurements: 18 [00:44,  3.82s/, Budget=6.53e+03][A[A[A
+
+
+Measurements: 18 [00:44,  3.82s/, Budget=6.74e+03][A[A[A
+
+
+Measurements: 19 [00:48,  3.77s/, Budget=6.74e+03][A[A[A
+
+
+Measurements: 19 [00:48,  3.77s/, Budget=6.84e+03][A[A[A
+
+
+Measurements: 20 [00:51,  3.64s/, Budget=6.84e+03][A[A[A
+
+
+Measurements: 20 [00:51,  3.64s/, Budget=6.88e+03][A[A[A
+
+
+Measurements: 21 [00:55,  3.83s/, Budget=6.88e+03][A[A[A
+
+
+Measurements: 21 [00:55,  3.83s/, Budget=7.15e+03][A[A[A
+
+
+Measurements: 22 [00:59,  3.79s/, Budget=7.15e+03][A[A[A
+
+
+Measurements: 22 [00:59,  3.79s/, Budget=7.49e+03][A[A[A
+
+
+Measurements: 23 [01:03,  3.83s/, Budget=7.49e+03][A[A[A
+
+
+Measurements: 23 [01:03,  3.83s/, Budget=8.00e+03][A[A[A
+
+
+Measurements: 24 [01:07,  3.82s/, Budget=8.00e+03][A[A[A
+
+
+Measurements: 24 [01:07,  3.82s/, Budget=8.15e+03][A[A[A
+
+
+Measurements: 25 [01:11,  3.85s/, Budget=8.15e+03][A[A[A
+
+
+Measurements: 25 [01:11,  3.85s/, Budget=8.19e+03][A[A[A
+
+
+Measurements: 26 [01:14,  3.77s/, Budget=8.19e+03][A[A[A
+
+
+Measurements: 26 [01:14,  3.77s/, Budget=8.44e+03][A[A[A
+
+
+Measurements: 27 [01:18,  3.80s/, Budget=8.44e+03][A[A[A
+
+
+Measurements: 27 [01:18,  3.80s/, Budget=8.52e+03][A[A[A
+
+
+Measurements: 28 [01:22,  3.85s/, Budget=8.52e+03][A[A[A
+
+
+Measurements: 28 [01:22,  3.85s/, Budget=8.86e+03][A[A[A
+
+
+Measurements: 29 [01:26,  3.98s/, Budget=8.86e+03][A[A[A
+
+
+Measurements: 29 [01:26,  3.98s/, Budget=9.20e+03][A[A[A
+
+
+Measurements: 30 [01:30,  4.00s/, Budget=9.20e+03][A[A[A
+
+
+Measurements: 30 [01:30,  4.00s/, Budget=1.01e+04][A[A[A
+Runs:  67%|██████▋   | 2/3 [03:23<01:39, 99.68s/it] [A
+
+Measurements: 0 [00:00, ?/s][A[A
+
+
+                                                  [A[A[A
+
+Measurements: 7 [00:03,  1.89/s][A[A
+
+Measurements: 7 [00:03,  1.89/s, Budget=2.62e+03][A[A
+
+Measurements: 8 [00:07,  1.14s/, Budget=2.62e+03][A[A
+
+Measurements: 8 [00:07,  1.14s/, Budget=2.82e+03][A[A
+
+Measurements: 9 [00:11,  1.62s/, Budget=2.82e+03][A[A
+
+Measurements: 9 [00:11,  1.62s/, Budget=3.12e+03][A[A
+
+Measurements: 10 [00:15,  2.08s/, Budget=3.12e+03][A[A
+
+Measurements: 10 [00:15,  2.08s/, Budget=3.97e+03][A[A
+
+Measurements: 11 [00:18,  2.42s/, Budget=3.97e+03][A[A
+
+Measurements: 11 [00:18,  2.42s/, Budget=4.84e+03][A[A
+
+Measurements: 12 [00:21,  2.61s/, Budget=4.84e+03][A[A
+
+Measurements: 12 [00:21,  2.61s/, Budget=5.57e+03][A[A
+
+Measurements: 13 [00:25,  2.94s/, Budget=5.57e+03][A[A
+
+Measurements: 13 [00:25,  2.94s/, Budget=6.36e+03][A[A
+
+Measurements: 14 [00:29,  3.09s/, Budget=6.36e+03][A[A
+
+Measurements: 14 [00:29,  3.09s/, Budget=6.46e+03][A[A
+
+Measurements: 15 [00:32,  3.22s/, Budget=6.46e+03][A[A
+
+Measurements: 15 [00:32,  3.22s/, Budget=6.97e+03][A[A
+
+Measurements: 16 [00:36,  3.42s/, Budget=6.97e+03][A[A
+
+Measurements: 16 [00:36,  3.42s/, Budget=7.80e+03][A[A
+
+Measurements: 17 [00:40,  3.44s/, Budget=7.80e+03][A[A
+
+Measurements: 17 [00:40,  3.44s/, Budget=9.02e+03][A[A
+
+Measurements: 18 [00:43,  3.52s/, Budget=9.02e+03][A[A
+
+Measurements: 18 [00:43,  3.52s/, Budget=9.28e+03][A[A
+
+Measurements: 19 [00:48,  3.94s/, Budget=9.28e+03][A[A
+
+Measurements: 19 [00:48,  3.94s/, Budget=9.61e+03][A[A
+
+Measurements: 20 [00:52,  3.98s/, Budget=9.61e+03][A[A
+
+Measurements: 20 [00:52,  3.98s/, Budget=1.01e+04][A[A
+Runs: 100%|██████████| 3/3 [04:16<00:00, 78.42s/it][A
+                                                   [ACase Studies:  20%|██        | 1/5 [04:16<17:04, 256.14s/it, case=P1]
+
+Measurements: 20 [00:53,  3.98s/, case=P2]        [A[A
+Runs:   0%|          | 0/3 [00:00<?, ?it/s][A
+
+
+Measurements: 0 [00:00, ?/s][A[A[A
+
+                                          [A[A
+
+
+Measurements: 7 [00:05,  1.32/s][A[A[A
+
+
+Measurements: 7 [00:05,  1.32/s, Budget=3.44e+03][A[A[A
+
+
+Measurements: 8 [00:10,  1.46s/, Budget=3.44e+03][A[A[A
+
+
+Measurements: 8 [00:10,  1.46s/, Budget=3.75e+03][A[A[A
+
+
+Measurements: 9 [00:15,  2.14s/, Budget=3.75e+03][A[A[A
+
+
+Measurements: 9 [00:15,  2.14s/, Budget=3.86e+03][A[A[A
+
+
+Measurements: 10 [00:20,  2.94s/, Budget=3.86e+03][A[A[A
+
+
+Measurements: 10 [00:20,  2.94s/, Budget=4.71e+03][A[A[A
+
+
+Measurements: 11 [00:26,  3.54s/, Budget=4.71e+03][A[A[A
+
+
+Measurements: 11 [00:26,  3.54s/, Budget=5.22e+03][A[A[A
+
+
+Measurements: 12 [00:32,  4.09s/, Budget=5.22e+03][A[A[A
+
+
+Measurements: 12 [00:32,  4.09s/, Budget=5.75e+03][A[A[A
+
+
+Measurements: 13 [00:37,  4.49s/, Budget=5.75e+03][A[A[A
+
+
+Measurements: 13 [00:37,  4.49s/, Budget=5.90e+03][A[A[A
+
+
+Measurements: 14 [00:43,  4.82s/, Budget=5.90e+03][A[A[A
+
+
+Measurements: 14 [00:43,  4.82s/, Budget=5.90e+03][A[A[A
+
+
+Measurements: 15 [00:48,  5.00s/, Budget=5.90e+03][A[A[A
+
+
+Measurements: 15 [00:48,  5.00s/, Budget=6.55e+03][A[A[A
+
+
+Measurements: 16 [00:54,  5.25s/, Budget=6.55e+03][A[A[A
+
+
+Measurements: 16 [00:54,  5.25s/, Budget=6.69e+03][A[A[A
+
+
+Measurements: 17 [01:00,  5.35s/, Budget=6.69e+03][A[A[A
+
+
+Measurements: 17 [01:00,  5.35s/, Budget=7.02e+03][A[A[A
+
+
+Measurements: 18 [01:06,  5.56s/, Budget=7.02e+03][A[A[A
+
+
+Measurements: 18 [01:06,  5.56s/, Budget=7.24e+03][A[A[A
+
+
+Measurements: 19 [01:11,  5.54s/, Budget=7.24e+03][A[A[A
+
+
+Measurements: 19 [01:11,  5.54s/, Budget=7.30e+03][A[A[A
+
+
+Measurements: 20 [01:17,  5.70s/, Budget=7.30e+03][A[A[A
+
+
+Measurements: 20 [01:17,  5.70s/, Budget=7.43e+03][A[A[A
+
+
+Measurements: 21 [01:24,  5.82s/, Budget=7.43e+03][A[A[A
+
+
+Measurements: 21 [01:24,  5.82s/, Budget=7.53e+03][A[A[A
+
+
+Measurements: 22 [01:30,  5.96s/, Budget=7.53e+03][A[A[A
+
+
+Measurements: 22 [01:30,  5.96s/, Budget=7.93e+03][A[A[A
+
+
+Measurements: 23 [01:37,  6.16s/, Budget=7.93e+03][A[A[A
+
+
+Measurements: 23 [01:37,  6.16s/, Budget=8.20e+03][A[A[A
+
+
+Measurements: 24 [01:44,  6.51s/, Budget=8.20e+03][A[A[A
+
+
+Measurements: 24 [01:44,  6.51s/, Budget=8.51e+03][A[A[A
+
+
+Measurements: 25 [01:50,  6.46s/, Budget=8.51e+03][A[A[A
+
+
+Measurements: 25 [01:50,  6.46s/, Budget=8.66e+03][A[A[A
+
+
+Measurements: 26 [01:57,  6.53s/, Budget=8.66e+03][A[A[A
+
+
+Measurements: 26 [01:57,  6.53s/, Budget=8.71e+03][A[A[A
+
+
+Measurements: 27 [02:03,  6.38s/, Budget=8.71e+03][A[A[A
+
+
+Measurements: 27 [02:03,  6.38s/, Budget=9.17e+03][A[A[A
+
+
+Measurements: 28 [02:09,  6.34s/, Budget=9.17e+03][A[A[A
+
+
+Measurements: 28 [02:09,  6.34s/, Budget=9.43e+03][A[A[A
+
+
+Measurements: 29 [02:16,  6.39s/, Budget=9.43e+03][A[A[A
+
+
+Measurements: 29 [02:16,  6.39s/, Budget=9.74e+03][A[A[A
+
+
+Measurements: 30 [02:23,  6.58s/, Budget=9.74e+03][A[A[A
+
+
+Measurements: 30 [02:23,  6.58s/, Budget=1.00e+04][A[A[A
+Runs:  33%|███▎      | 1/3 [02:23<04:46, 143.42s/it][A
+
+Measurements: 0 [00:00, ?/s][A[A
+
+
+                                                  [A[A[A
+
+Measurements: 7 [00:04,  1.47/s][A[A
+
+Measurements: 7 [00:04,  1.47/s, Budget=2.36e+03][A[A
+
+Measurements: 8 [00:09,  1.40s/, Budget=2.36e+03][A[A
+
+Measurements: 8 [00:09,  1.40s/, Budget=2.82e+03][A[A
+
+Measurements: 9 [00:14,  2.09s/, Budget=2.82e+03][A[A
+
+Measurements: 9 [00:14,  2.09s/, Budget=3.09e+03][A[A
+
+Measurements: 10 [00:19,  2.78s/, Budget=3.09e+03][A[A
+
+Measurements: 10 [00:19,  2.78s/, Budget=3.90e+03][A[A
+
+Measurements: 11 [00:25,  3.39s/, Budget=3.90e+03][A[A
+
+Measurements: 11 [00:25,  3.39s/, Budget=4.91e+03][A[A
+
+Measurements: 12 [00:30,  3.78s/, Budget=4.91e+03][A[A
+
+Measurements: 12 [00:30,  3.78s/, Budget=5.15e+03][A[A
+
+Measurements: 13 [00:34,  4.00s/, Budget=5.15e+03][A[A
+
+Measurements: 13 [00:34,  4.00s/, Budget=5.41e+03][A[A
+
+Measurements: 14 [00:40,  4.49s/, Budget=5.41e+03][A[A
+
+Measurements: 14 [00:40,  4.49s/, Budget=5.76e+03][A[A
+
+Measurements: 15 [00:46,  4.87s/, Budget=5.76e+03][A[A
+
+Measurements: 15 [00:46,  4.87s/, Budget=6.18e+03][A[A
+
+Measurements: 16 [00:52,  5.21s/, Budget=6.18e+03][A[A
+
+Measurements: 16 [00:52,  5.21s/, Budget=6.51e+03][A[A
+
+Measurements: 17 [00:58,  5.50s/, Budget=6.51e+03][A[A
+
+Measurements: 17 [00:58,  5.50s/, Budget=6.78e+03][A[A
+
+Measurements: 18 [01:04,  5.64s/, Budget=6.78e+03][A[A
+
+Measurements: 18 [01:04,  5.64s/, Budget=6.94e+03][A[A
+
+Measurements: 19 [01:10,  5.63s/, Budget=6.94e+03][A[A
+
+Measurements: 19 [01:10,  5.63s/, Budget=7.48e+03][A[A
+
+Measurements: 20 [01:16,  5.82s/, Budget=7.48e+03][A[A
+
+Measurements: 20 [01:16,  5.82s/, Budget=7.86e+03][A[A
+
+Measurements: 21 [01:22,  5.79s/, Budget=7.86e+03][A[A
+
+Measurements: 21 [01:22,  5.79s/, Budget=7.97e+03][A[A
+
+Measurements: 22 [01:27,  5.62s/, Budget=7.97e+03][A[A
+
+Measurements: 22 [01:27,  5.62s/, Budget=8.16e+03][A[A
+
+Measurements: 23 [01:33,  5.74s/, Budget=8.16e+03][A[A
+
+Measurements: 23 [01:33,  5.74s/, Budget=8.24e+03][A[A
+
+Measurements: 24 [01:39,  5.68s/, Budget=8.24e+03][A[A
+
+Measurements: 24 [01:39,  5.68s/, Budget=8.38e+03][A[A
+
+Measurements: 25 [01:45,  5.95s/, Budget=8.38e+03][A[A
+
+Measurements: 25 [01:45,  5.95s/, Budget=8.43e+03][A[A
+
+Measurements: 26 [01:52,  6.10s/, Budget=8.43e+03][A[A
+
+Measurements: 26 [01:52,  6.10s/, Budget=8.68e+03][A[A
+
+Measurements: 27 [01:58,  6.20s/, Budget=8.68e+03][A[A
+
+Measurements: 27 [01:58,  6.20s/, Budget=8.88e+03][A[A
+
+Measurements: 28 [02:04,  6.25s/, Budget=8.88e+03][A[A
+
+Measurements: 28 [02:04,  6.25s/, Budget=9.15e+03][A[A
+
+Measurements: 29 [02:11,  6.42s/, Budget=9.15e+03][A[A
+
+Measurements: 29 [02:11,  6.42s/, Budget=9.68e+03][A[A
+
+Measurements: 30 [02:19,  6.79s/, Budget=9.68e+03][A[A
+
+Measurements: 30 [02:19,  6.79s/, Budget=1.05e+04][A[A
+Runs:  67%|██████▋   | 2/3 [04:42<02:21, 141.14s/it][A
+
+
+Measurements: 0 [00:00, ?/s][A[A[A
+
+                                                  [A[A
+
+
+Measurements: 7 [00:05,  1.29/s][A[A[A
+
+
+Measurements: 7 [00:05,  1.29/s, Budget=2.56e+03][A[A[A
+
+
+Measurements: 8 [00:10,  1.49s/, Budget=2.56e+03][A[A[A
+
+
+Measurements: 8 [00:10,  1.49s/, Budget=3.12e+03][A[A[A
+
+
+Measurements: 9 [00:16,  2.30s/, Budget=3.12e+03][A[A[A
+
+
+Measurements: 9 [00:16,  2.30s/, Budget=3.50e+03][A[A[A
+
+
+Measurements: 10 [00:21,  2.88s/, Budget=3.50e+03][A[A[A
+
+
+Measurements: 10 [00:21,  2.88s/, Budget=3.92e+03][A[A[A
+
+
+Measurements: 11 [00:26,  3.59s/, Budget=3.92e+03][A[A[A
+
+
+Measurements: 11 [00:26,  3.59s/, Budget=4.15e+03][A[A[A
+
+
+Measurements: 12 [00:31,  3.88s/, Budget=4.15e+03][A[A[A
+
+
+Measurements: 12 [00:31,  3.88s/, Budget=4.49e+03][A[A[A
+
+
+Measurements: 13 [00:36,  4.19s/, Budget=4.49e+03][A[A[A
+
+
+Measurements: 13 [00:36,  4.19s/, Budget=4.76e+03][A[A[A
+
+
+Measurements: 14 [00:42,  4.56s/, Budget=4.76e+03][A[A[A
+
+
+Measurements: 14 [00:42,  4.56s/, Budget=4.95e+03][A[A[A
+
+
+Measurements: 15 [00:47,  4.74s/, Budget=4.95e+03][A[A[A
+
+
+Measurements: 15 [00:47,  4.74s/, Budget=5.05e+03][A[A[A
+
+
+Measurements: 16 [00:52,  4.79s/, Budget=5.05e+03][A[A[A
+
+
+Measurements: 16 [00:52,  4.79s/, Budget=5.86e+03][A[A[A
+
+
+Measurements: 17 [00:57,  5.02s/, Budget=5.86e+03][A[A[A
+
+
+Measurements: 17 [00:57,  5.02s/, Budget=6.50e+03][A[A[A
+
+
+Measurements: 18 [01:03,  5.21s/, Budget=6.50e+03][A[A[A
+
+
+Measurements: 18 [01:03,  5.21s/, Budget=6.70e+03][A[A[A
+
+
+Measurements: 19 [01:09,  5.51s/, Budget=6.70e+03][A[A[A
+
+
+Measurements: 19 [01:09,  5.51s/, Budget=6.95e+03][A[A[A
+
+
+Measurements: 20 [01:15,  5.52s/, Budget=6.95e+03][A[A[A
+
+
+Measurements: 20 [01:15,  5.52s/, Budget=7.18e+03][A[A[A
+
+
+Measurements: 21 [01:21,  5.73s/, Budget=7.18e+03][A[A[A
+
+
+Measurements: 21 [01:21,  5.73s/, Budget=7.27e+03][A[A[A
+
+
+Measurements: 22 [01:28,  6.07s/, Budget=7.27e+03][A[A[A
+
+
+Measurements: 22 [01:28,  6.07s/, Budget=7.56e+03][A[A[A
+
+
+Measurements: 23 [01:34,  5.95s/, Budget=7.56e+03][A[A[A
+
+
+Measurements: 23 [01:34,  5.95s/, Budget=7.67e+03][A[A[A
+
+
+Measurements: 24 [01:40,  6.07s/, Budget=7.67e+03][A[A[A
+
+
+Measurements: 24 [01:40,  6.07s/, Budget=7.81e+03][A[A[A
+
+
+Measurements: 25 [01:47,  6.27s/, Budget=7.81e+03][A[A[A
+
+
+Measurements: 25 [01:47,  6.27s/, Budget=7.87e+03][A[A[A
+
+
+Measurements: 26 [01:52,  6.12s/, Budget=7.87e+03][A[A[A
+
+
+Measurements: 26 [01:52,  6.12s/, Budget=8.05e+03][A[A[A
+
+
+Measurements: 27 [01:59,  6.29s/, Budget=8.05e+03][A[A[A
+
+
+Measurements: 27 [01:59,  6.29s/, Budget=8.06e+03][A[A[A
+
+
+Measurements: 28 [02:05,  6.01s/, Budget=8.06e+03][A[A[A
+
+
+Measurements: 28 [02:05,  6.01s/, Budget=8.13e+03][A[A[A
+
+
+Measurements: 29 [02:11,  6.09s/, Budget=8.13e+03][A[A[A
+
+
+Measurements: 29 [02:11,  6.09s/, Budget=8.31e+03][A[A[A
+
+
+Measurements: 30 [02:17,  6.11s/, Budget=8.31e+03][A[A[A
+
+
+Measurements: 30 [02:17,  6.11s/, Budget=8.48e+03][A[A[A
+
+
+Measurements: 31 [02:24,  6.38s/, Budget=8.48e+03][A[A[A
+
+
+Measurements: 31 [02:24,  6.38s/, Budget=8.55e+03][A[A[A
+
+
+Measurements: 32 [02:30,  6.31s/, Budget=8.55e+03][A[A[A
+
+
+Measurements: 32 [02:30,  6.31s/, Budget=8.70e+03][A[A[A
+
+
+Measurements: 33 [02:37,  6.47s/, Budget=8.70e+03][A[A[A
+
+
+Measurements: 33 [02:37,  6.47s/, Budget=8.87e+03][A[A[A
+
+
+Measurements: 34 [02:45,  6.85s/, Budget=8.87e+03][A[A[A
+
+
+Measurements: 34 [02:45,  6.85s/, Budget=8.95e+03][A[A[A
+
+
+Measurements: 35 [02:52,  6.84s/, Budget=8.95e+03][A[A[A
+
+
+Measurements: 35 [02:52,  6.84s/, Budget=9.42e+03][A[A[A
+
+
+Measurements: 36 [02:58,  6.81s/, Budget=9.42e+03][A[A[A
+
+
+Measurements: 36 [02:58,  6.81s/, Budget=9.95e+03][A[A[A
+
+
+Measurements: 37 [03:05,  6.68s/, Budget=9.95e+03][A[A[A
+
+
+Measurements: 37 [03:05,  6.68s/, Budget=1.01e+04][A[A[A
+Runs: 100%|██████████| 3/3 [07:48<00:00, 161.33s/it][A
+                                                    [ACase Studies:  40%|████      | 2/5 [12:04<19:02, 380.96s/it, case=P1]
+
+
+Measurements: 37 [03:05,  6.68s/, case=P3]        [A[A[A
+Runs:   0%|          | 0/3 [00:00<?, ?it/s][A
+
+Measurements: 0 [00:00, ?/s][A[A
+
+
+                                          [A[A[A
+
+Measurements: 7 [00:05,  1.35/s][A[A
+
+Measurements: 7 [00:05,  1.35/s, Budget=3.16e+03][A[A
+
+Measurements: 8 [00:10,  1.55s/, Budget=3.16e+03][A[A
+
+Measurements: 8 [00:10,  1.55s/, Budget=3.20e+03][A[A
+
+Measurements: 9 [00:15,  2.19s/, Budget=3.20e+03][A[A
+
+Measurements: 9 [00:15,  2.19s/, Budget=4.00e+03][A[A
+
+Measurements: 12 [00:21,  2.16s/, Budget=4.00e+03][A[A
+
+Measurements: 12 [00:21,  2.16s/, Budget=4.74e+03][A[A
+
+Measurements: 15 [00:27,  2.10s/, Budget=4.74e+03][A[A
+
+Measurements: 15 [00:27,  2.10s/, Budget=5.17e+03][A[A
+
+Measurements: 18 [00:35,  2.30s/, Budget=5.17e+03][A[A
+
+Measurements: 18 [00:35,  2.30s/, Budget=6.57e+03][A[A
+
+Measurements: 21 [00:42,  2.26s/, Budget=6.57e+03][A[A
+
+Measurements: 21 [00:42,  2.26s/, Budget=7.47e+03][A[A
+
+Measurements: 22 [00:48,  2.84s/, Budget=7.47e+03][A[A
+
+Measurements: 22 [00:48,  2.84s/, Budget=9.01e+03][A[A
+
+Measurements: 25 [00:54,  2.52s/, Budget=9.01e+03][A[A
+
+Measurements: 25 [00:54,  2.52s/, Budget=9.80e+03][A[A
+
+Measurements: 28 [01:02,  2.52s/, Budget=9.80e+03][A[A
+
+Measurements: 28 [01:02,  2.52s/, Budget=1.13e+04][A[A
+Runs:  33%|███▎      | 1/3 [01:02<02:05, 62.62s/it][A
+
+
+Measurements: 0 [00:00, ?/s][A[A[A
+
+                                                  [A[A
+
+
+Measurements: 7 [00:04,  1.49/s][A[A[A
+
+
+Measurements: 7 [00:04,  1.49/s, Budget=3.14e+03][A[A[A
+
+
+Measurements: 8 [00:10,  1.60s/, Budget=3.14e+03][A[A[A
+
+
+Measurements: 8 [00:10,  1.60s/, Budget=3.96e+03][A[A[A
+
+
+Measurements: 9 [00:16,  2.45s/, Budget=3.96e+03][A[A[A
+
+
+Measurements: 9 [00:16,  2.45s/, Budget=4.23e+03][A[A[A
+
+
+Measurements: 10 [00:21,  2.99s/, Budget=4.23e+03][A[A[A
+
+
+Measurements: 10 [00:21,  2.99s/, Budget=4.27e+03][A[A[A
+
+
+Measurements: 11 [00:27,  3.53s/, Budget=4.27e+03][A[A[A
+
+
+Measurements: 11 [00:27,  3.53s/, Budget=4.90e+03][A[A[A
+
+
+Measurements: 12 [00:32,  4.06s/, Budget=4.90e+03][A[A[A
+
+
+Measurements: 12 [00:32,  4.06s/, Budget=5.71e+03][A[A[A
+
+
+Measurements: 15 [00:37,  2.85s/, Budget=5.71e+03][A[A[A
+
+
+Measurements: 15 [00:37,  2.85s/, Budget=6.81e+03][A[A[A
+
+
+Measurements: 18 [00:45,  2.67s/, Budget=6.81e+03][A[A[A
+
+
+Measurements: 18 [00:45,  2.67s/, Budget=8.36e+03][A[A[A
+
+
+Measurements: 21 [00:51,  2.50s/, Budget=8.36e+03][A[A[A
+
+
+Measurements: 21 [00:51,  2.50s/, Budget=1.03e+04][A[A[A
+Runs:  67%|██████▋   | 2/3 [01:54<00:56, 56.42s/it][A
+
+Measurements: 0 [00:00, ?/s][A[A
+
+
+                                                  [A[A[A
+
+Measurements: 7 [00:04,  1.44/s][A[A
+
+Measurements: 7 [00:04,  1.44/s, Budget=3.59e+03][A[A
+
+Measurements: 10 [00:11,  1.25s/, Budget=3.59e+03][A[A
+
+Measurements: 10 [00:11,  1.25s/, Budget=4.21e+03][A[A
+
+Measurements: 13 [00:18,  1.60s/, Budget=4.21e+03][A[A
+
+Measurements: 13 [00:18,  1.60s/, Budget=4.62e+03][A[A
+
+Measurements: 16 [00:24,  1.74s/, Budget=4.62e+03][A[A
+
+Measurements: 16 [00:24,  1.74s/, Budget=5.80e+03][A[A
+
+Measurements: 19 [00:31,  1.98s/, Budget=5.80e+03][A[A
+
+Measurements: 19 [00:31,  1.98s/, Budget=6.54e+03][A[A
+
+Measurements: 22 [00:38,  2.07s/, Budget=6.54e+03][A[A
+
+Measurements: 22 [00:38,  2.07s/, Budget=7.64e+03][A[A
+
+Measurements: 28 [00:44,  1.59s/, Budget=7.64e+03][A[A
+
+Measurements: 28 [00:44,  1.59s/, Budget=9.58e+03][A[A
+
+Measurements: 31 [00:52,  1.83s/, Budget=9.58e+03][A[A
+
+Measurements: 31 [00:52,  1.83s/, Budget=1.17e+04][A[A
+Runs: 100%|██████████| 3/3 [02:47<00:00, 54.64s/it][A
+                                                   [ACase Studies:  60%|██████    | 3/5 [14:51<09:26, 283.36s/it, case=P1]
+
+Measurements: 31 [00:52,  1.83s/, case=P4]        [A[A
+Runs:   0%|          | 0/3 [00:00<?, ?it/s][A
+
+
+Measurements: 0 [00:00, ?/s][A[A[A
+
+                                          [A[A
+
+
+Measurements: 11 [00:14,  1.29s/][A[A[A
+
+
+Measurements: 11 [00:14,  1.29s/, Budget=3.17e+03][A[A[A
+
+
+Measurements: 16 [00:29,  2.01s/, Budget=3.17e+03][A[A[A
+
+
+Measurements: 16 [00:29,  2.01s/, Budget=3.17e+03][A[A[A
+
+
+Measurements: 21 [00:44,  2.38s/, Budget=3.17e+03][A[A[A
+
+
+Measurements: 21 [00:44,  2.38s/, Budget=3.97e+03][A[A[A
+
+
+Measurements: 26 [01:01,  2.71s/, Budget=3.97e+03][A[A[A
+
+
+Measurements: 26 [01:01,  2.71s/, Budget=5.13e+03][A[A[A
+
+
+Measurements: 31 [01:19,  3.01s/, Budget=5.13e+03][A[A[A
+
+
+Measurements: 31 [01:19,  3.01s/, Budget=6.52e+03][A[A[A
+
+
+Measurements: 36 [01:39,  3.29s/, Budget=6.52e+03][A[A[A
+
+
+Measurements: 36 [01:39,  3.29s/, Budget=7.53e+03][A[A[A
+
+
+Measurements: 41 [01:56,  3.36s/, Budget=7.53e+03][A[A[A
+
+
+Measurements: 41 [01:56,  3.36s/, Budget=7.79e+03][A[A[A
+
+
+Measurements: 46 [02:18,  3.66s/, Budget=7.79e+03][A[A[A
+
+
+Measurements: 46 [02:18,  3.66s/, Budget=8.81e+03][A[A[A
+
+
+Measurements: 51 [02:40,  3.88s/, Budget=8.81e+03][A[A[A
+
+
+Measurements: 51 [02:40,  3.88s/, Budget=8.91e+03][A[A[A
+
+
+Measurements: 56 [03:01,  3.98s/, Budget=8.91e+03][A[A[A
+
+
+Measurements: 56 [03:01,  3.98s/, Budget=9.73e+03][A[A[A
+
+
+Measurements: 61 [03:23,  4.11s/, Budget=9.73e+03][A[A[A
+
+
+Measurements: 61 [03:23,  4.11s/, Budget=9.73e+03][A[A[A
+
+
+Measurements: 66 [03:46,  4.24s/, Budget=9.73e+03][A[A[A
+
+
+Measurements: 66 [03:46,  4.24s/, Budget=1.04e+04][A[A[A
+Runs:  33%|███▎      | 1/3 [03:46<07:33, 226.59s/it][A
+
+Measurements: 0 [00:00, ?/s][A[A
+
+
+                                                  [A[A[A
+
+Measurements: 11 [00:14,  1.36s/][A[A
+
+Measurements: 11 [00:14,  1.36s/, Budget=3.17e+03][A[A
+
+Measurements: 16 [00:28,  1.88s/, Budget=3.17e+03][A[A
+
+Measurements: 16 [00:28,  1.88s/, Budget=3.85e+03][A[A
+
+Measurements: 21 [00:44,  2.36s/, Budget=3.85e+03][A[A
+
+Measurements: 21 [00:44,  2.36s/, Budget=4.94e+03][A[A
+
+Measurements: 26 [01:01,  2.70s/, Budget=4.94e+03][A[A
+
+Measurements: 26 [01:01,  2.70s/, Budget=6.32e+03][A[A
+
+Measurements: 31 [01:19,  2.98s/, Budget=6.32e+03][A[A
+
+Measurements: 31 [01:19,  2.98s/, Budget=7.43e+03][A[A
+
+Measurements: 36 [01:38,  3.25s/, Budget=7.43e+03][A[A
+
+Measurements: 36 [01:38,  3.25s/, Budget=7.79e+03][A[A
+
+Measurements: 41 [01:58,  3.52s/, Budget=7.79e+03][A[A
+
+Measurements: 41 [01:58,  3.52s/, Budget=9.48e+03][A[A
+
+Measurements: 46 [02:19,  3.69s/, Budget=9.48e+03][A[A
+
+Measurements: 46 [02:19,  3.69s/, Budget=9.88e+03][A[A
+
+Measurements: 51 [02:40,  3.85s/, Budget=9.88e+03][A[A
+
+Measurements: 51 [02:40,  3.85s/, Budget=1.06e+04][A[A
+Runs:  67%|██████▋   | 2/3 [06:27<03:07, 187.68s/it][A
+
+
+Measurements: 0 [00:00, ?/s][A[A[A
+
+                                                  [A[A
+
+
+Measurements: 11 [00:14,  1.32s/][A[A[A
+
+
+Measurements: 11 [00:14,  1.32s/, Budget=3.37e+03][A[A[A
+
+
+Measurements: 16 [00:28,  1.92s/, Budget=3.37e+03][A[A[A
+
+
+Measurements: 16 [00:28,  1.92s/, Budget=4.18e+03][A[A[A
+
+
+Measurements: 21 [00:45,  2.43s/, Budget=4.18e+03][A[A[A
+
+
+Measurements: 21 [00:45,  2.43s/, Budget=5.27e+03][A[A[A
+
+
+Measurements: 26 [01:02,  2.79s/, Budget=5.27e+03][A[A[A
+
+
+Measurements: 26 [01:02,  2.79s/, Budget=5.94e+03][A[A[A
+
+
+Measurements: 31 [01:19,  2.98s/, Budget=5.94e+03][A[A[A
+
+
+Measurements: 31 [01:19,  2.98s/, Budget=6.30e+03][A[A[A
+
+
+Measurements: 36 [01:38,  3.25s/, Budget=6.30e+03][A[A[A
+
+
+Measurements: 36 [01:38,  3.25s/, Budget=7.06e+03][A[A[A
+
+
+Measurements: 41 [01:58,  3.43s/, Budget=7.06e+03][A[A[A
+
+
+Measurements: 41 [01:58,  3.43s/, Budget=7.42e+03][A[A[A
+
+
+Measurements: 46 [02:19,  3.72s/, Budget=7.42e+03][A[A[A
+
+
+Measurements: 46 [02:19,  3.72s/, Budget=7.48e+03][A[A[A
+
+
+Measurements: 51 [02:42,  3.96s/, Budget=7.48e+03][A[A[A
+
+
+Measurements: 51 [02:42,  3.96s/, Budget=8.28e+03][A[A[A
+
+
+Measurements: 56 [03:03,  4.07s/, Budget=8.28e+03][A[A[A
+
+
+Measurements: 56 [03:03,  4.07s/, Budget=8.43e+03][A[A[A
+
+
+Measurements: 61 [03:26,  4.21s/, Budget=8.43e+03][A[A[A
+
+
+Measurements: 61 [03:26,  4.21s/, Budget=8.54e+03][A[A[A
+
+
+Measurements: 66 [03:50,  4.36s/, Budget=8.54e+03][A[A[A
+
+
+Measurements: 66 [03:50,  4.36s/, Budget=8.59e+03][A[A[A
+
+
+Measurements: 71 [04:14,  4.50s/, Budget=8.59e+03][A[A[A
+
+
+Measurements: 71 [04:14,  4.50s/, Budget=8.64e+03][A[A[A
+
+
+Measurements: 76 [04:41,  4.76s/, Budget=8.64e+03][A[A[A
+
+
+Measurements: 76 [04:41,  4.76s/, Budget=9.42e+03][A[A[A
+
+
+Measurements: 81 [05:06,  4.86s/, Budget=9.42e+03][A[A[A
+
+
+Measurements: 81 [05:06,  4.86s/, Budget=1.03e+04][A[A[A
+Runs: 100%|██████████| 3/3 [11:33<00:00, 242.08s/it][A
+                                                    [ACase Studies:  80%|████████  | 4/5 [26:25<07:25, 445.42s/it, case=P1]
+
+
+Measurements: 81 [05:06,  4.86s/, case=P5]        [A[A[A
+Runs:   0%|          | 0/3 [00:00<?, ?it/s][A
+
+Measurements: 0 [00:00, ?/s][A[A
+
+
+                                          [A[A[A
+
+Measurements: 11 [00:05,  2.05/s][A[A
+
+Measurements: 11 [00:05,  2.05/s, Budget=4.24e+03][A[A
+
+Measurements: 16 [00:11,  1.30/s, Budget=4.24e+03][A[A
+
+Measurements: 16 [00:11,  1.30/s, Budget=6.29e+03][A[A
+
+Measurements: 21 [00:17,  1.07/s, Budget=6.29e+03][A[A
+
+Measurements: 21 [00:17,  1.07/s, Budget=9.05e+03][A[A
+
+Measurements: 26 [00:24,  1.07s/, Budget=9.05e+03][A[A
+
+Measurements: 26 [00:24,  1.07s/, Budget=1.18e+04][A[A
+Runs:  33%|███▎      | 1/3 [00:24<00:48, 24.47s/it][A
+
+
+Measurements: 0 [00:00, ?/s][A[A[A
+
+                                                  [A[A
+
+
+Measurements: 11 [00:05,  1.87/s][A[A[A
+
+
+Measurements: 11 [00:05,  1.87/s, Budget=4.42e+03][A[A[A
+
+
+Measurements: 16 [00:11,  1.26/s, Budget=4.42e+03][A[A[A
+
+
+Measurements: 16 [00:11,  1.26/s, Budget=6.46e+03][A[A[A
+
+
+Measurements: 21 [00:18,  1.02s/, Budget=6.46e+03][A[A[A
+
+
+Measurements: 21 [00:18,  1.02s/, Budget=9.32e+03][A[A[A
+
+
+Measurements: 26 [00:26,  1.15s/, Budget=9.32e+03][A[A[A
+
+
+Measurements: 26 [00:26,  1.15s/, Budget=1.13e+04][A[A[A
+Runs:  67%|██████▋   | 2/3 [00:50<00:25, 25.53s/it][A
+
+Measurements: 0 [00:00, ?/s][A[A
+
+
+                                                  [A[A[A
+
+Measurements: 11 [00:05,  1.98/s][A[A
+
+Measurements: 11 [00:05,  1.98/s, Budget=4.17e+03][A[A
+
+Measurements: 16 [00:11,  1.35/s, Budget=4.17e+03][A[A
+
+Measurements: 16 [00:11,  1.35/s, Budget=6.34e+03][A[A
+
+Measurements: 21 [00:17,  1.04/s, Budget=6.34e+03][A[A
+
+Measurements: 21 [00:17,  1.04/s, Budget=9.02e+03][A[A
+
+Measurements: 26 [00:25,  1.18s/, Budget=9.02e+03][A[A
+
+Measurements: 26 [00:25,  1.18s/, Budget=1.17e+04][A[A
+Runs: 100%|██████████| 3/3 [01:16<00:00, 25.82s/it][A
+                                                   [ACase Studies: 100%|██████████| 5/5 [27:42<00:00, 312.53s/it, case=P1]Case Studies: 100%|██████████| 5/5 [27:42<00:00, 332.49s/it, case=P1]
+
+
+                                                  [A[A
