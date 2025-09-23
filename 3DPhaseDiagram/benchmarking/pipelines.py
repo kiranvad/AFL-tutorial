@@ -13,6 +13,9 @@ from AFL.double_agent.Preprocessor import Standardize
 from AFL.double_agent.PipelineOp import PipelineOp
 from AFL.double_agent.AcquisitionFunction import MaxValueAF
 
+gp_params_mcmc_phase = {"num_samples":25, "num_warmup":25, "method":"mcmc", "verbose":False} 
+gp_params_mcmc_feasible = {"num_samples":10, "num_warmup":10, "method":"mcmc", "verbose":False} 
+
 class FeasibilityLabeler(PipelineOp):
     def __init__(
         self,
@@ -86,8 +89,6 @@ class ExperimentCost(PipelineOp):
 
         return self 
 
-gp_params_mcmc = {"num_samples":20, "num_warmup":20, "method":"mcmc", "verbose":False} 
-
 def _hierarchy_feasible_single_composition_batch_temperature(name, **kwargs):
     with Pipeline(name = name) as p:
         CartesianGrid(
@@ -126,7 +127,7 @@ def _hierarchy_feasible_single_composition_batch_temperature(name, **kwargs):
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_phase,
             name="DirichletGPExtrapolator-PhaseLabels",
         )
         FeasibilityLabeler(
@@ -143,7 +144,7 @@ def _hierarchy_feasible_single_composition_batch_temperature(name, **kwargs):
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_feasible,
             name="DirichletGPExtrapolator-FeasibilityLabels",
         )
         MarginalEntropyOverDimension(
@@ -223,7 +224,7 @@ def _hierarchy_feasible_single_composition_batch_temperature(name, **kwargs):
             name= "FullWidthHalfMaximum1D",
         ) 
     
-    def _runner(ds_running, sim):
+    def _runner(ind, ds_running, sim):
         ds_result = p.calculate(ds_running, disable_progress_bar=True)
         ds_new = []
         for t in ds_result.temperature_next.values:
@@ -234,6 +235,7 @@ def _hierarchy_feasible_single_composition_batch_temperature(name, **kwargs):
             ds = sim.simple_expose(sample)
             ds = ds.rename({'composition': 'design_space', 'component':'ds_dim'})
             ds['phases'] = int(ds.attrs['labels'])
+            ds['batch_sample_id'] = ind
             ds_new.append(ds)
 
         ds_new = xr.concat(ds_new, dim='sample')
@@ -283,7 +285,7 @@ def _hierarchy_single_composition_single_temperature(name, **kwargs):
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_phase,
             name="DirichletGPExtrapolator-PhaseLabels",
         )
         DesignSpaceHierarchyCost(
@@ -310,19 +312,20 @@ def _hierarchy_single_composition_single_temperature(name, **kwargs):
             output_prefix=None,
             output_variable="next_sample",
             decision_rtol=0.05,
-            excluded_comps_variables=None,
-            excluded_comps_dim=None,
-            exclusion_radius=0.001,
+            excluded_comps_variables="design_space",
+            excluded_comps_dim="ds_dim",
+            exclusion_radius=0.01,
             count=1,
             name="MaxValueAF",
         )
     
-    def _runner(ds_running, sim):
+    def _runner(ind, ds_running, sim):
         ds_result = p.calculate(ds_running, disable_progress_bar=True)
         next_sample = ds_result['next_sample'].to_pandas().to_dict(orient='records')[0]
         ds_new = sim.simple_expose(next_sample)
         ds_new = ds_new.rename({'composition': 'design_space', 'component':'ds_dim'})
         ds_new['phases'] = int(ds_new.attrs['labels'])
+        ds_new['batch_sample_id'] = ind
         ds_running = xr.concat([ds_running, ds_new], dim='sample') 
 
         return ds_running, ds_result 
@@ -369,7 +372,7 @@ def _hierarchy_feasible_single_composition_single_temperature(name, **kwargs):
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_phase,
             name="DirichletGPExtrapolator-PhaseLabels",
         )
         FeasibilityLabeler(
@@ -386,7 +389,7 @@ def _hierarchy_feasible_single_composition_single_temperature(name, **kwargs):
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_feasible,
             name="DirichletGPExtrapolator-FeasibilityLabels",
         )
         DesignSpaceHierarchyCost(
@@ -421,19 +424,20 @@ def _hierarchy_feasible_single_composition_single_temperature(name, **kwargs):
             output_prefix=None,
             output_variable="next_sample",
             decision_rtol=0.05,
-            excluded_comps_variables=None,
-            excluded_comps_dim=None,
-            exclusion_radius=0.001,
+            excluded_comps_variables="design_space",
+            excluded_comps_dim="ds_dim",
+            exclusion_radius=0.01,
             count=1,
             name="MaxValueAF",
         )
     
-    def _runner(ds_running, sim):
+    def _runner(ind, ds_running, sim):
         ds_result = p.calculate(ds_running, disable_progress_bar=True)
         next_sample = ds_result['next_sample'].to_pandas().to_dict(orient='records')[0]
         ds_new = sim.simple_expose(next_sample)
         ds_new = ds_new.rename({'composition': 'design_space', 'component':'ds_dim'})
         ds_new['phases'] = int(ds_new.attrs['labels'])
+        ds_new['batch_sample_id'] = ind
         ds_running = xr.concat([ds_running, ds_new], dim='sample') 
 
         return ds_running, ds_result 
@@ -480,7 +484,7 @@ def _hierarchy_feasible_single_composition_adaptive_batch_temperature(name, **kw
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_phase,
             name="DirichletGPExtrapolator-PhaseLabels",
         ) 
         DesignSpaceHierarchyCost(
@@ -521,7 +525,18 @@ def _hierarchy_feasible_single_composition_adaptive_batch_temperature(name, **kw
             output_prefix= "composition",
             name= "QueryStrategy-Composition",
         )
-    with Pipeline(name = name+"_select_temperature") as seltemp:    
+    with Pipeline(name = name+"_select_temperature") as seltemp:
+        DirichletGPExtrapolator(
+            feature_input_variable="normalized_design_space",
+            predictor_input_variable="phases",
+            output_prefix="phasetemp",
+            grid_variable="normalized_design_space_grid",
+            grid_dim="ds_grid",
+            sample_dim="sample",
+            component_dim = "ds_dim",
+            params=gp_params_mcmc_phase,
+            name="DirichletGPExtrapolator-PhaseLabels-Temp",
+        )     
         FeasibilityLabeler(
             input_variable="phases",
             output_variable="feasibility_labels",
@@ -536,7 +551,7 @@ def _hierarchy_feasible_single_composition_adaptive_batch_temperature(name, **kw
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_feasible,
             name="DirichletGPExtrapolator-FeasibilityLabels",
         )
         BinaryProbabilityCost(
@@ -548,7 +563,7 @@ def _hierarchy_feasible_single_composition_adaptive_batch_temperature(name, **kw
             name = "BinaryProbabilityCost"
         )
         MarginalEntropyAlongDimension(
-            input_variable= "phase_y_prob",
+            input_variable= "phasetemp_y_prob",
             conditioning_point= "composition_next",
             coordinate_dim= "temperature",
             grid_variable= "design_space_grid",        
@@ -571,12 +586,20 @@ def _hierarchy_feasible_single_composition_adaptive_batch_temperature(name, **kw
             output_variable = "temperature_utility_with_cost",
             name = "AcquisitonWithCost-Temperature",
         )
-        ArgMax(
-            input_variable="temperature_utility_with_cost",
+        MaxValueAF(
+            input_variables=['temperature_utility_with_cost'],
             grid_variable="temperature_domain",
-            output_prefix= "temperature",
-            name= "QueryStrategy-Temperature",
-        )  
+            grid_dim="temperature_n",
+            combine_coeffs=None,
+            output_prefix="temperature",
+            output_variable="temperature_next",
+            decision_rtol=0.05,
+            excluded_comps_variables=None,
+            excluded_comps_dim=None,
+            exclusion_radius=5.0, # Not used
+            count=1,
+            name="MaxValueAF",
+        )
 
     def _get_running_dataset(ds_old, ds_new):
         ds = ds_new.rename({'composition': 'design_space', 'component':'ds_dim'})
@@ -600,7 +623,7 @@ def _hierarchy_feasible_single_composition_adaptive_batch_temperature(name, **kw
 
         return ds_running    
     
-    def _runner(ds_running, sim):
+    def _runner(ind, ds_running, sim):
         ds_result = setup.calculate(ds_running, disable_progress_bar=True)
         ds_result = selcomp.calculate(ds_result, disable_progress_bar=True)
         ds_running = ds_result.copy()
@@ -616,6 +639,7 @@ def _hierarchy_feasible_single_composition_adaptive_batch_temperature(name, **kw
                     "temperature" : ds_result.temperature_next.values.item()
                 } 
             ds = sim.simple_expose(sample)
+            ds['batch_sample_id'] = ind
             ds_running = _get_running_dataset(ds_running, ds)
 
         return ds_running, ds_result
@@ -660,7 +684,7 @@ def _hierarchy_feasible_single_composition_linesample_temperature(name, **kwargs
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_phase,
             name="DirichletGPExtrapolator-PhaseLabels",
         )
         FeasibilityLabeler(
@@ -677,7 +701,7 @@ def _hierarchy_feasible_single_composition_linesample_temperature(name, **kwargs
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_feasible,
             name="DirichletGPExtrapolator-FeasibilityLabels",
         )
         MarginalEntropyOverDimension(
@@ -745,7 +769,7 @@ def _hierarchy_feasible_single_composition_linesample_temperature(name, **kwargs
             name = "TemperatureLineSampler",
             )
         
-    def _runner(ds_running, sim):
+    def _runner(ind, ds_running, sim):
         ds_result = p.calculate(ds_running, disable_progress_bar=True)
         ds_new = []
         for t in ds_result.temperature_next.values:
@@ -756,6 +780,7 @@ def _hierarchy_feasible_single_composition_linesample_temperature(name, **kwargs
             ds = sim.simple_expose(sample)
             ds = ds.rename({'composition': 'design_space', 'component':'ds_dim'})
             ds['phases'] = int(ds.attrs['labels'])
+            ds['batch_sample_id'] = ind
             ds_new.append(ds)
 
         ds_new = xr.concat(ds_new, dim='sample')
@@ -805,7 +830,7 @@ def _single_composition_single_temperature(name, **kwargs):
             grid_dim="ds_grid",
             sample_dim="sample",
             component_dim = "ds_dim",
-            params=gp_params_mcmc,
+            params=gp_params_mcmc_phase,
             name="DirichletGPExtrapolator-PhaseLabels",
         )
         MaxValueAF(
@@ -816,19 +841,20 @@ def _single_composition_single_temperature(name, **kwargs):
             output_prefix=None,
             output_variable="next_sample",
             decision_rtol=0.05,
-            excluded_comps_variables=None,
-            excluded_comps_dim=None,
-            exclusion_radius=0.001,
+            excluded_comps_variables="design_space",
+            excluded_comps_dim="ds_dim",
+            exclusion_radius=0.01,
             count=1,
             name="MaxValueAF",
         )
     
-    def _runner(ds_running, sim):
+    def _runner(ind, ds_running, sim):
         ds_result = p.calculate(ds_running, disable_progress_bar=True)
         next_sample = ds_result['next_sample'].to_pandas().to_dict(orient='records')[0]
         ds_new = sim.simple_expose(next_sample)
         ds_new = ds_new.rename({'composition': 'design_space', 'component':'ds_dim'})
         ds_new['phases'] = int(ds_new.attrs['labels'])
+        ds_new['batch_sample_id'] = ind
         ds_running = xr.concat([ds_running, ds_new], dim='sample') 
 
         return ds_running, ds_result 

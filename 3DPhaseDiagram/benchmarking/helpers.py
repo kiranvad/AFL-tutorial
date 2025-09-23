@@ -78,6 +78,12 @@ def plot_phase_diagram(ds: xr.Dataset, grid_variable : str, dim : str, labels_va
     norm = BoundaryNorm(boundaries, cmap.N)
     if ax==None:
         fig, ax  = plt.subplots(subplot_kw={"projection":'3d'})
+        ax.set_xlim(0, 80)
+        ax.set_ylim(0, 12)
+        ax.set_zlim(0, 50)
+        ax.set_xlabel("protein")
+        ax.set_ylabel("glycerol")
+        ax.set_zlabel("temperature", labelpad=-1)
     else:
         fig = plt.gcf()
 
@@ -98,18 +104,8 @@ def plot_phase_diagram(ds: xr.Dataset, grid_variable : str, dim : str, labels_va
     cax = ax.inset_axes([1.15, 0.15, 0.05, 0.7], transform=ax.transAxes)
     cbar = fig.colorbar(mappable, pad = 0.5, shrink=0.75, aspect=5, ticks=[1.5,2.5,3.5],cax=cax)
     cbar.ax.set_yticklabels(['S-L', 'Single', 'L-L'])
-
-    if ax is None:
-        ax.set_xlim(0, 80)
-        ax.set_ylim(0, 12)
-        ax.set_zlim(0, 50)
-        ax.set_xlabel("protein")
-        ax.set_ylabel("glycerol")
-        ax.set_zlabel("temperature", labelpad=-1)
-        plt.tight_layout()
-        plt.show()
-    else:
-        return ax 
+    
+    return ax 
 
 def plot_progress_p1(
         ds, 
@@ -372,3 +368,61 @@ def plot_sampling_densities(ds,
     ax_hist.set_ylabel("Density")
 
     return fig, [ax_cb, ax_hist, ax_kde]
+
+def plot_temperature_profies(ds,
+                          design_space_variable = "design_space",
+                          design_space_dim = "ds_dim",
+                          composition_variables = ["protein", "glycerol"],
+                          temperature_variable = "temperature",
+                          verbose = False,
+                          ax = None
+                        ):
+    # convert to DataFrame
+    df = ds[design_space_variable].to_dataframe("value").unstack(design_space_dim)["value"].reset_index()
+    df.columns = ["sample", "protein", "temperature", "glycerol"]
+
+    # make the (protein, glycerol) key
+    df["pair"] = list(zip(df[composition_variables[0]], df[composition_variables[1]]))
+
+    # detect when a new batch starts:
+    # whenever the pair changes OR sample is not consecutive
+    df["batch_id"] = (
+        (df["pair"] != df["pair"].shift()) | (df["sample"] != df["sample"].shift() + 1)
+    ).cumsum()
+    if ax is None:
+        fig, ax = plt.subplots()
+    else:
+        fig = plt.gcf()
+    cmap = plt.get_cmap('coolwarm')
+    norm = Normalize(vmin=1, vmax=len(df["batch_id"].unique()))
+    for ind, rows in df.groupby("batch_id"):
+        v = rows[temperature_variable].values
+        k = rows["pair"].unique()[0]
+        if verbose:
+            print(
+                f"{ind}\t"
+                f"{'(' + ', '.join(f'{x:.2f}' for x in k) + ')'}\t"
+                f"{'(' + ', '.join(f'{x:.2f}' for x in v) + ')'}"
+            )
+
+        ax.plot(
+            np.linspace(0, 1, len(v)), 
+            v, 
+            color=cmap(norm(ind)), 
+        )
+    ax.set_xlabel("Measurement Index")
+    ax.set_ylabel("Temperature")
+    ax.set_ylim([0.0, 50.0])
+    ax.set_xlim([0.0, 1.0])
+    ax.plot(
+        np.linspace(0.0, 1.0, 10), 
+        np.linspace(0.0, 50.0, 10), 
+        color="k", 
+        ls="--"
+    )
+    mappable = ScalarMappable(norm=norm, cmap=cmap)
+    cax = ax.inset_axes([1.15, 0.15, 0.025, 0.7], transform=ax.transAxes)
+    cbar = fig.colorbar(mappable, pad = 0.5, shrink=0.85, aspect=5,cax=cax)
+    cbar.set_label("Measurement Batch Index")
+
+    return df, fig, ax, cbar
