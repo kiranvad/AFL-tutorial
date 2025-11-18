@@ -369,7 +369,7 @@ def plot_sampling_densities(ds,
 
     return fig, [ax_cb, ax_hist, ax_kde]
 
-def plot_temperature_profies(ds,
+def _plot_temperature_profies(ds,
                           design_space_variable = "design_space",
                           design_space_dim = "ds_dim",
                           composition_variables = ["protein", "glycerol"],
@@ -426,3 +426,48 @@ def plot_temperature_profies(ds,
     cbar.set_label("Measurement Batch Index")
 
     return df, fig, ax, cbar
+
+def plot_temperature_profies(ds,
+                          design_space_variable = "design_space",
+                          design_space_dim = "ds_dim",
+                          batch_variable = "batch_sample_id",
+                          composition_variables = ["protein", "glycerol"],
+                          temperature_variable = "temperature",
+                          ax = None
+                        ):
+    cmap = plt.get_cmap('coolwarm')
+    if ax is None:
+        fig, ax = plt.subplots()
+    else:
+        fig = plt.gcf()
+    design_space = ds[design_space_variable]
+    temperature_design_space = design_space.sel({design_space_dim:temperature_variable})
+    batches = np.unique(ds[batch_variable])
+    cmap = plt.get_cmap('coolwarm')
+    norm = Normalize(vmin=1, vmax=len(batches))
+    for ind in batches:
+        v = temperature_design_space[ds[batch_variable]==ind].values
+        if len(v)>1:
+            ax.plot(
+                np.linspace(0, 1, len(v)), 
+                v, 
+                color=cmap(norm(ind)), 
+                marker="o"
+            )
+        else:
+            ax.scatter(0.0, v.item(), color=cmap(norm(ind)), s=50)
+    ax.set_xlabel("Measurement Index")
+    ax.set_ylabel("Temperature")
+    ax.set_ylim([0.0, 50.0])
+    ax.set_xlim([0.0, 1.0])
+    ax.plot(
+        np.linspace(0.0, 1.0, 10), 
+        np.linspace(0.0, 50.0, 10), 
+        color="k", 
+        ls="--"
+    )
+    mappable = ScalarMappable(norm=norm, cmap=cmap)
+    cax = ax.inset_axes([1.05, 0.15, 0.025, 0.7], transform=ax.transAxes)
+    cbar = fig.colorbar(mappable, pad = 0.15, shrink=0.85, aspect=5,cax=cax)
+    cbar.set_label("Measurement Batch Index")
+    return [], fig, ax, cbar

@@ -65,6 +65,7 @@ class DesignSpaceHierarchyCost(PipelineOp):
     def __init__(
         self,
         input_variable: str = None,
+        iteration_variable:str = None,
         grid_variable: str = None,
         grid_dim:str =None,
         component_dim:str=None,
@@ -88,7 +89,7 @@ class DesignSpaceHierarchyCost(PipelineOp):
         self.grid_variable = grid_variable
         self.grid_dim = grid_dim
         self.component_dim = component_dim
-        self.iteration = 1 
+        self.iteration_vairable = iteration_variable
         self._banned_from_attrs.extend(["iteration"])
 
     def calculate(self, dataset: xr.Dataset) -> Self:
@@ -106,7 +107,11 @@ class DesignSpaceHierarchyCost(PipelineOp):
             Returns self with updated output containing hierarchical costs.
         """
         query = dataset[self.input_variable]
-        cost_grid = self.evaluate_cost(query=query)
+        itr = max(dataset[self.iteration_vairable].values)
+        cost_grid = self.evaluate_cost(
+            query, 
+            itr   
+        )
 
         self.output[self.output_variable] = xr.DataArray(cost_grid, dims=self.grid_dim)
         self.output[self.output_variable].attrs[
@@ -115,7 +120,7 @@ class DesignSpaceHierarchyCost(PipelineOp):
 
         return self
     
-    def evaluate_cost(self, query: xr.DataArray) -> np.ndarray:
+    def evaluate_cost(self, query: xr.DataArray, itr: int) -> np.ndarray:
         """
         Compute cost for each query point using previously sampled data.
 
@@ -136,13 +141,12 @@ class DesignSpaceHierarchyCost(PipelineOp):
             w = np.sort(np.random.dirichlet(np.ones(k),size=1))[0]
             dim_cost = []
             for j in range(k):
-                ell = 1/((w[j]*self.iteration)+1)
+                ell = 1/((w[j]*itr)+1)
                 x = query.sel({self.component_dim: self.coordinates_order[j]}).values[i]
                 f_x_t = ell*np.exp(-(np.abs(x-self.coordinates_offsets[j])*ell))
                 dim_cost.append(1-f_x_t)
             output[i] = np.prod(np.array(dim_cost))
 
-        self.iteration += 1
         return output 
 
 class BinaryProbabilityCost(PipelineOp):

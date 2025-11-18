@@ -1,0 +1,48 @@
+{
+  "config": {
+    "n_iterations": 10,
+    "n_init": 2,
+    "n_init_temps": 5,
+    "save_path": "./results/",
+    "gp": {
+      "n_iterations": 100
+    },
+    "optimize_xy": {
+      "n_samples": 16,
+      "n_iterations": 200,
+      "n_restarts": 16
+    },
+    "optimize_f": {
+      "n_iterations": 100,
+      "n_restarts": 16,
+      "dt": 0.05,
+      "dT": 3.0
+    },
+    "manifold": {
+      "n_sampling_points": 100,
+      "ambient_dim": 1
+    },
+    "grid": {
+      "nx": 10,
+      "ny": 10,
+      "nz": 25
+    }
+  },
+  "bounds": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      80.0,
+      12.0,
+      50.0
+    ]
+  ],
+  "grid": {
+    "nx": 10,
+    "ny": 10,
+    "nz": 25
+  }
+}

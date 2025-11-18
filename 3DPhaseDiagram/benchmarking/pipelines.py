@@ -13,8 +13,8 @@ from AFL.double_agent.Preprocessor import Standardize
 from AFL.double_agent.PipelineOp import PipelineOp
 from AFL.double_agent.AcquisitionFunction import MaxValueAF
 
-gp_params_mcmc_phase = {"num_samples":25, "num_warmup":25, "method":"mcmc", "verbose":False} 
-gp_params_mcmc_feasible = {"num_samples":10, "num_warmup":10, "method":"mcmc", "verbose":False} 
+gp_params_mcmc_phase = {"num_samples":150, "num_warmup":50, "method":"mcmc", "verbose":False} 
+gp_params_mcmc_feasible = {"num_samples":50, "num_warmup":25, "method":"mcmc", "verbose":False} 
 
 class FeasibilityLabeler(PipelineOp):
     def __init__(
@@ -157,6 +157,7 @@ def _hierarchy_feasible_single_composition_batch_temperature(name, **kwargs):
         )
         DesignSpaceHierarchyCost(
             input_variable = "normalized_design_space_grid",
+            iteration_variable = "batch_sample_id",
             grid_variable = "design_space_grid",
             grid_dim = "ds_grid",
             component_dim = "ds_dim",
@@ -290,6 +291,7 @@ def _hierarchy_single_composition_single_temperature(name, **kwargs):
         )
         DesignSpaceHierarchyCost(
             input_variable = "normalized_design_space_grid",
+            iteration_variable = "batch_sample_id",
             grid_variable = "design_space_grid",
             grid_dim = "ds_grid",
             component_dim = "ds_dim",
@@ -394,6 +396,7 @@ def _hierarchy_feasible_single_composition_single_temperature(name, **kwargs):
         )
         DesignSpaceHierarchyCost(
             input_variable = "normalized_design_space_grid",
+            iteration_variable = "batch_sample_id",
             grid_variable = "design_space_grid",
             grid_dim = "ds_grid",
             component_dim = "ds_dim",
@@ -489,6 +492,7 @@ def _hierarchy_feasible_single_composition_adaptive_batch_temperature(name, **kw
         ) 
         DesignSpaceHierarchyCost(
             input_variable = "normalized_design_space_grid",
+            iteration_variable = "batch_sample_id",
             grid_variable = "design_space_grid",
             grid_dim = "ds_grid",
             component_dim = "ds_dim",
@@ -714,6 +718,7 @@ def _hierarchy_feasible_single_composition_linesample_temperature(name, **kwargs
         )
         DesignSpaceHierarchyCost(
             input_variable = "normalized_design_space_grid",
+            iteration_variable = "batch_sample_id",
             grid_variable = "design_space_grid",
             grid_dim = "ds_grid",
             component_dim = "ds_dim",
